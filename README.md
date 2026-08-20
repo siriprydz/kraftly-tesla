@@ -46,7 +46,7 @@ npm start
 #### Möten
 
 - Måndag: kl 13–16 på plats i skolan
-- Tisdag: kl 9 – oklart
+- Tisdag: kl 9 – oklart, på plats i skolan
 
 ### Standup-mall
 
