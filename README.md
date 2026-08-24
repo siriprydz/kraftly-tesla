@@ -13,6 +13,12 @@ npm start
 
 ## Working Agreement
 
+### Teach Lead Agreement 
+- Tech lead v 1-3 – Siri
+- Tech lead v 4–6 – Mia
+- Tech lead v 7-9 –Jakob
+- Tech lead v 10-12 – Elin 
+
 ### Workflow
 
 - Jobba i Github projects: backlog, redo, pågående, review och klart
@@ -20,6 +26,11 @@ npm start
 - En branch per issue som man döper efter issue-typ, t.ex. `issue/123`, `fix/123` osv
 - Fyll i PR-mallen innan man skickar PR
 - Minst en annan person måste godkänna PR
+
+### Git Workflow
+- Pull alltid med git pull --ff-only för att undvika onödiga merge-commits
+- Skapa en ny branch för varje feature/fix: feature/kort-beskrivning eller fix/kort-beskrivning
+- Författaren av koden Squash:ar och merge:ar efter godkänd PR
 
 ### Guidelines för branchnamn
 
@@ -29,8 +40,19 @@ npm start
 - docs/172-api-setup-guide
 - refactor/180-extract-payment-service
 
+### Guidelines för commits
+
+Vi vill hålla projekthistoriken ren och lättläst. Följ dessa regler när du skriver dina commit-meddelanden:
+
+- Skriv alltid på engelska.
+- Använd imperativ (nutidsform som ett kommando/uppmaning).
+- Rätt: Add login feature eller Fix bug in sidebar
+- Fel: Added login feature (dåtid) eller Fixes bug in sidebar (tredje person)
+- Håll det kort
+
 ### Guidelines
 
+- Huvudsaklig kommunikation sker via discord-gruppchatten.
 - Informera gruppen. T.ex. förvarna i frånvaro-chatten om du inte kommer vara aktiv den dagen.
 - Kolla discord varje dag
 - Gör dina standups
