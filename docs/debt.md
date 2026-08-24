@@ -1,8 +1,22 @@
 # Skuldinventering
 
-- Api nyckel ligger öppen i repo i filen api.js
-- 3 olika knappar under components, onödigt med 3 olika knappar
-- inloggning funkar inte
-- Ingen pipeline och ingen deploy proccess
+- Api-nyckel ligger öppen i repo i filen api.js
+- Inloggning är bara en localStorage-flagga, ingen JWT/session eller servervalidering
+- Mock-API autentiserar inte, tar emot tom body och ger alltid 200. CORS är öppen för allt
+- .env är inte med i gitignore och .env-example saknas
+- README säger `npm start` men scriptet finns inte (bara `dev` och `api`). Frontend och mock-API måste köras som två processer
+- Inloggning funkar inte: ingen validering, ingen felhantering och ingen loading-state — om API:t inte körs händer ingenting
+- E-postfältet är `type="text"`
+- Fakturanedladdning och "Fler spartips" är bara alert/console.log, inte riktiga funktioner
+- Mycket console-log och gamla kommentarer
+- Mixad stil i koden
+- Ingen pipeline och ingen deployprocess
 - Inga tester
-- Hero-bild är 6,5 MB, för stor. hela lodash biblan importeras
+- 3 olika knappimplementationer under components, onödigt med 3 olika knappar
+- Hero-bild är 6,5 MB, för stor
+- Hela lodash-biblioteket importeras bara för en debounce
+- Ingen TypeScript
+- Dålig tillgänlighet: fokusmarkering borttagen, formulärfält saknar label
+- Inline styles
+- Glömt lösneords-funktion saknas
+- Lägg till automatisk scanning av beroenden och säkerhetsuppdateringar (dependabot / renovatebot/ etc)
