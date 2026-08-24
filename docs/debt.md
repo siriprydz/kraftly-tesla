@@ -19,3 +19,4 @@
 - Dålig tillgänlighet: fokusmarkering borttagen, formulärfält saknar label
 - Inline styles
 - Glömt lösneords-funktion saknas
+- Lägg till automatisk scanning av beroenden och säkerhetsuppdateringar (dependabot / renovatebot/ etc)
