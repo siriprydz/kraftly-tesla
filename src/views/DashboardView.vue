@@ -1,7 +1,7 @@
 <template>
   <div>
     <img src="../assets/hero.png" class="hero">
-    <h1 v-if="userStore.user">Hej {{ userStore.user.name.split(' ')[0] }}!</h1>
+    <h1 v-if="userStore.user">Hej {{ firstName(userStore.user.name) }}!</h1>
     <h1 v-else>Hej!</h1>
 
     <div class="stats">
@@ -22,16 +22,15 @@
     <div class="card">
       <h2>Din elförbrukning – senaste 12 månaderna</h2>
       <p v-if="consumptionStore.loading">Laddar…</p>
-      <ConsumptionChart
-        v-else-if="consumptionStore.data"
-        :months="consumptionStore.data.months"
+      <ConsumptionChart v-else-if="consumptionStore.data" :months="consumptionStore.data.months"
         :values="consumptionStore.data.values" />
       <p class="hint">Källa: din elmätare. Uppdateras varje dygn.</p>
     </div>
 
     <div class="card">
       <h2>Spartips just nu</h2>
-      <p>Elpriset är som högst mellan 07–09 och 17–20. Flytta tvätt och diskmaskin till natten så kan du sänka din kostnad med upp till 15 %.</p>
+      <p>Elpriset är som högst mellan 07–09 och 17–20. Flytta tvätt och diskmaskin till natten så kan du sänka din
+        kostnad med upp till 15 %.</p>
       <div class="btn" style="margin-top:12px" @click="showTips">Fler spartips</div>
     </div>
   </div>
@@ -44,6 +43,7 @@ import { computed, onMounted, onBeforeUnmount } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
 import ConsumptionChart from '../components/ConsumptionChart.vue'
+import { firstName } from '../utils/user.js'
 
 const userStore = useUserStore()
 const consumptionStore = useConsumptionStore()
@@ -76,8 +76,26 @@ const showTips = () => {
 </script>
 
 <style scoped>
-.hero { width: 100%; border-radius: 10px; margin-bottom: 18px; }
-.stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
-.stat-label { font-size: 13px; color: #7c8698; margin-bottom: 6px; }
-.stat-value { font-size: 26px; font-weight: 700; }
+.hero {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #7c8698;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+}
 </style>
