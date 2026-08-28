@@ -20,3 +20,15 @@ it('fetches invoices', async () => {
 
   expect(result).toEqual(invoices)
 })
+
+it('throws an error when the API request fails', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: false,
+      status: 500
+    })
+  )
+
+  await expect(fetchInvoices()).rejects.toThrow('API error 500')
+})
