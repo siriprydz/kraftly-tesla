@@ -9,7 +9,7 @@
         <tr v-for="invoice in invoices" :key="invoice.id">
           <td>{{ invoice.id }}</td>
           <td>{{ invoice.period }}</td>
-          <td>{{ invoice.amount }} kr</td>
+          <td>{{ formatAmount(invoice.amount) }} kr</td>
           <td>{{ invoice.due }}</td>
           <td><span :class="['status-chip', invoice.status === 'Betald' ? 'status-betald' : 'status-obetald']">{{ invoice.status }}</span></td>
           <td><div class="download" @click="downloadInvoice(invoice)">Ladda ner</div></td>
@@ -22,6 +22,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { fetchInvoices } from '../services/api'
+import { formatAmount } from '../utils/format'
 
 const invoices = ref([])
 
