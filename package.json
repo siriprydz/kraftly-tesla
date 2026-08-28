@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "private": true,
   "scripts": {
+    "e2e:cy": "start-server-and-test \"npm run api\" http://localhost:4000/api/user \"npm run dev\" http://localhost:5173 \"cypress run\"",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
