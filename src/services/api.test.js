@@ -30,7 +30,11 @@ it('logs in a user', async () => {
     'http://localhost:4000/api/login',
     expect.objectContaining({
       method: 'POST',
-      body: JSON.stringify({ email: 'anna@example.com', password: 'secret' })
+      body: JSON.stringify({ email: 'anna@example.com', password: 'secret' }),
+      headers: expect.objectContaining({
+        'Content-Type': 'application/json',
+        'X-Api-Key': expect.any(String)
+      })
     })
   )
 })
@@ -49,6 +53,10 @@ it('fetches the user', async () => {
   const result = await fetchUser()
 
   expect(result).toEqual(user)
+  expect(fetch).toHaveBeenCalledWith(
+    'http://localhost:4000/api/user',
+    expect.any(Object)
+  )
 })
 
 it('fetches consumption', async () => {
@@ -65,6 +73,10 @@ it('fetches consumption', async () => {
   const result = await fetchConsumption()
 
   expect(result).toEqual(consumption)
+  expect(fetch).toHaveBeenCalledWith(
+    'http://localhost:4000/api/consumption',
+    expect.any(Object)
+  )
 })
 
 it('fetches invoices', async () => {
@@ -81,6 +93,10 @@ it('fetches invoices', async () => {
   const result = await fetchInvoices()
 
   expect(result).toEqual(invoices)
+  expect(fetch).toHaveBeenCalledWith(
+    'http://localhost:4000/api/invoices',
+    expect.any(Object)
+  )
 })
 
 it('throws an error when the API request fails', async () => {
@@ -96,7 +112,13 @@ it('throws an error when the API request fails', async () => {
 })
 
 it('submits a move request', async () => {
-  const moveData = { address: 'Solvägen 12', moveDate: '2026-09-01' }
+  const moveData = {
+    address: 'Solvägen 12',
+    zip: '802 67',
+    city: 'Gävle',
+    date: '2026-09-01',
+    contract: 'Rörligt pris'
+  }
   const response = { ok: true, ref: 'FLYTT-12345' }
 
   vi.stubGlobal(
@@ -120,7 +142,11 @@ it('submits a move request', async () => {
 })
 
 it('saves the user', async () => {
-  const userData = { name: 'Anna Andersson' }
+  const userData = {
+    name: 'Anna Andersson',
+    email: 'anna.andersson@example.com',
+    address: 'Solvägen 12'
+  }
   const response = { id: 1, ...userData }
 
   vi.stubGlobal(
