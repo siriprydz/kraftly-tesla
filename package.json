@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:run": "vitest run",
+    "test": "vitest",
     "api": "node mock-api/server.js"
   },
   "dependencies": {
@@ -22,6 +22,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "cypress": "^15.21.1",
     "start-server-and-test": "^3.0.12",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "vitest": "^4.1.11"
   }
 }
