@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { firstName } from "./user.test";
+import { firstName } from "./user";
 
 describe("firstName", () => {
   it("returns the first name from a full name", () => {
