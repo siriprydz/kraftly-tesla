@@ -61,4 +61,5 @@ th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #e8ecf3; 
 
 .status-chip { border-radius: 12px; padding: 3px 10px; font-size: 12px; }
 .status-obetald { background: #fff1f0; color: #e35d6a; }
+.status-forfallen { background: #ffe6e6; color: #b42318; }
 .status-betald { background: #ecfdf3; color: #12b76a; }
