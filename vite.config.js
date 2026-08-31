@@ -1,7 +1,11 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 
-// config from a starter template, seems to work /M
 export default defineConfig({
-  plugins: [vue()]
+  plugins: [vue()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./tests/setup.js']
+  }
 })
