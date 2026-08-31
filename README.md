@@ -61,6 +61,19 @@ Vi vill hålla projekthistoriken ren och lättläst. Följ dessa regler när du 
 - Håll deadlines
 - Säg till om något inte känns bra
 
+### Coding guidelines
+
+#### Vi använder ESLint med följande princip:
+
+- error = fångar faktiska buggar (typkonvertering, scope-problem) → blockerar PR
+- warn = teknisk skuld / debug-rester → syns men blockerar inte utveckling
+
+Detta låter oss iterera snabbt utan att kompromissa med korrekthet.
+
+#### Vi använder Prettier med följande princip:
+
+- Vi kör utan semikolon på slutet av rader, eftersom JavaScript ändå fattar var raden slutar. Vi använder enkla citattecken ('text') istället för dubbla, bara för att det ser renare ut. Rader får vara lite längre än standard, upp till 100 tecken, eftersom de flesta jobbar på breda skärmar nuförtiden. Vi sätter alltid ett kommatecken efter sista raden i listor och objekt, så att man slipper onödiga ändringar i Git när man lägger till en ny rad. Vi använder samma typ av radbrytning (LF) oavsett om man kodar på Mac, Windows eller Linux, så att filerna inte skiljer sig åt beroende på vem som skrev dem. Och i Vue-filer låter vi script- och style-delarna vara oindragna, så de ser ut som vanliga JS-filer.
+
 ### Schema
 
 #### Standups
