@@ -11,7 +11,11 @@
           <td>{{ invoice.period }}</td>
           <td>{{ formatAmount(invoice.amount) }} kr</td>
           <td>{{ invoice.due }}</td>
-          <td><span :class="['status-chip', invoice.status === 'Betald' ? 'status-betald' : 'status-obetald']">{{ invoice.status }}</span></td>
+          <td>
+            <span :class="['status-chip', getStatus(invoice) === 'Betald' ? 'status-betald' : 'status-obetald']">
+              {{ getStatus(invoice) }}
+            </span>
+          </td>
           <td><div class="download" @click="downloadInvoice(invoice)">Ladda ner</div></td>
         </tr>
       </table>
@@ -23,8 +27,11 @@
 import { ref, onMounted } from 'vue'
 import { fetchInvoices } from '../services/api'
 import { formatAmount } from '../utils/format'
+import { invoiceStatus } from '../utils/invoice'
 
 const invoices = ref([])
+
+const getStatus = (invoice) => invoiceStatus(invoice, new Date())
 
 onMounted(async () => {
   invoices.value = await fetchInvoices()
