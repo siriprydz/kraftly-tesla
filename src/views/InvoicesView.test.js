@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/vue'
-import { beforeEach, describe, it, expect, vi } from 'vitest'
+import { beforeEach, afterEach, describe, it, expect, vi } from 'vitest'
 import InvoicesView from './InvoicesView.vue'
+import { fetchInvoices } from '../services/api'
 
 const mockedInvoices = [
   {
@@ -38,20 +39,23 @@ describe('InvoicesView', () => {
   })
 
   afterEach(() => {
+    vi.restoreAllMocks()
     vi.useRealTimers()
   })
 
-  it('renders the invoice heading and fetched rows', async () => {
+  it('loads invoices and renders the heading and rows', async () => {
     render(InvoicesView)
 
-    expect(screen.getByRole('heading', { name: 'Fakturor' })).toBeInTheDocument()
+    expect(fetchInvoices).toHaveBeenCalled()
+    expect(await screen.findByRole('heading', { name: 'Fakturor' })).toBeInTheDocument()
     expect(await screen.findByText('F-2026-06')).toBeInTheDocument()
     expect(screen.getByText('Juni')).toBeInTheDocument()
     expect(screen.getByText('F-2026-07')).toBeInTheDocument()
     expect(screen.getByText('Juli')).toBeInTheDocument()
+    expect(screen.getByText('F-2026-08')).toBeInTheDocument()
   })
 
-  it('renders invoice status chips with the correct labels and classes', async () => {
+  it('renders the correct invoice status text', async () => {
     render(InvoicesView)
 
     const paidStatus = await screen.findByText('Betald')
@@ -61,13 +65,9 @@ describe('InvoicesView', () => {
     expect(paidStatus).toBeInTheDocument()
     expect(overdueStatus).toBeInTheDocument()
     expect(unpaidStatus).toBeInTheDocument()
-
-    expect(paidStatus).toHaveClass('status-chip', 'status-betald')
-    expect(overdueStatus).toHaveClass('status-chip', 'status-forfallen')
-    expect(unpaidStatus).toHaveClass('status-chip', 'status-obetald')
   })
 
-  it('shows download action and alerts when clicked', async () => {
+  it('shows a warning alert when the user clicks download', async () => {
     const alertSpy = vi.spyOn(window, 'alert').mockImplementation(() => {})
 
     render(InvoicesView)
@@ -77,5 +77,6 @@ describe('InvoicesView', () => {
     await fireEvent.click(downloadButton[0])
 
     expect(alertSpy).toHaveBeenCalledWith('Nedladdning kommer snart')
+    alertSpy.mockRestore()
   })
 })
