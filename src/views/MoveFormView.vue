@@ -4,19 +4,24 @@
     <div class="card" style="max-width:560px">
       <p style="margin-bottom:14px">Fyll i uppgifterna nedan så flyttar vi ditt elavtal.</p>
 
-      <input type="text" placeholder="Ny adress" v-model="form.address">
+      <label for="address">Ny adress</label>
+      <input id="address" type="text" placeholder="Ny adress" v-model="form.address">
       <p v-if="errors.address" class="error">{{ errors.address }}</p>
 
-      <input type="text" placeholder="Postnummer" v-model="form.zip">
+      <label for="zip">Postnummer</label>
+      <input id="zip" type="text" placeholder="Postnummer" v-model="form.zip">
       <p v-if="errors.zip" class="error">{{ errors.zip }}</p>
 
-      <input type="text" placeholder="Ort" v-model="form.city">
+      <label for="city">Ort</label>
+      <input id="city" type="text" placeholder="Ort" v-model="form.city">
       <p v-if="errors.city" class="error">{{ errors.city }}</p>
 
-      <input type="text" placeholder="Inflyttningsdatum (ÅÅÅÅ-MM-DD)" v-model="form.date">
+      <label for="date">Inflyttningsdatum</label>
+      <input id="date" type="text" placeholder="Inflyttningsdatum (ÅÅÅÅ-MM-DD)" v-model="form.date">
       <p v-if="errors.date" class="error">{{ errors.date }}</p>
 
-      <select v-model="form.contract">
+      <label for="contract">Avtal</label>
+      <select id="contract" v-model="form.contract">
         <option disabled value="">Välj avtal</option>
         <option>Rörligt pris</option>
         <option>Fast pris 1 år</option>
