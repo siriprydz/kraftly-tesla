@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import MoveFormView from "./MoveFormView.vue";
 
+vi.mock("../services/api", () => ({
+  submitMove: vi.fn().mockResolvedValue({ ok: true, ref: "FLYTT-12345" }),
+}));
+
 describe("MoveFormView", () => {
   it("has a field for new adress that a screen reader can read", () => {
     render(MoveFormView);
@@ -20,10 +24,12 @@ describe("MoveFormView", () => {
     );
     await user.selectOptions(screen.getByRole("combobox"), "Rörligt pris");
 
-    await user.click(screen.getByRole("button", { name: /skicka/i }));
+    await user.click(
+      screen.getByRole("button", { name: "Skicka flyttanmälan" }),
+    );
 
     expect(
-      await screen.findByText(/Tack! Referensnummer:/),
+      await screen.findByText("Tack! Referensnummer: FLYTT-12345"),
     ).toBeInTheDocument();
   });
 });
