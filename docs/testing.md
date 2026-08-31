@@ -2,27 +2,27 @@
 
 ## Karta: vad testas var
 
-| Del av portalen | Nivå (enhet / komponent / E2E) | Varför just där? | Finns test idag? |
-| --- | --- | --- | --- |
-| Prisformattering | Enhet | Endast logik/en funktion | Nej |
-| Förnamn i hälsning | Enhet | Endast logik/en funktion | Nej |
-| Fakturastatus (förfallen?) | Enhet | Endast logik/en funktion | Nej |
-| Validering flyttanmälan | Enhet | Endast logik/en funktion | Nej |
-| StatusChip | Komponent | Komponenten (men inte hela appen) måste renderas för att testet ska köras. | Nej |
-| Flyttanmälans formulär | Komponent | Den söker efter något på skärmen så något måste renderas. | Nej |
-| Förbrukningsdiagrammet | Komponent | Den kan testas isolerat. Chart måste renderas. | Nej |
-| Stores (user, consumption) | Enhet | Enhetstest, eftersom vi vill testa hur logiken funkar (med ett mockat API), inte hur den visas i UI i en komponent eller vy. | Nej |
-| API-klienten (api.js) | Enhet | Innehåller flera separata funktioner som vi kan testa med enhetstest eftersom inget renderas. | Nej |
-| Inloggningsflödet | E2E | Överskrider fler sidor | Nej |
-| Navigation mellan sidor | E2E | Överskrider fler sidor | Nej |
-| … era egna tillägg | | | Nej |
+| Del av portalen            | Nivå (enhet / komponent / E2E) | Varför just där?                                                                                                             | Finns test idag? |
+| -------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| Prisformattering           | Enhet                          | Endast logik/en funktion                                                                                                     | Nej              |
+| Förnamn i hälsning         | Enhet                          | Endast logik/en funktion                                                                                                     | Nej              |
+| Fakturastatus (förfallen?) | Enhet                          | Endast logik/en funktion                                                                                                     | Nej              |
+| Validering flyttanmälan    | Enhet                          | Endast logik/en funktion                                                                                                     | Nej              |
+| StatusChip                 | Komponent                      | Komponenten (men inte hela appen) måste renderas för att testet ska köras.                                                   | Nej              |
+| Flyttanmälans formulär     | Komponent                      | Den söker efter något på skärmen så något måste renderas.                                                                    | Nej              |
+| Förbrukningsdiagrammet     | Komponent                      | Den kan testas isolerat. Chart måste renderas.                                                                               | Nej              |
+| Stores (user, consumption) | Enhet                          | Enhetstest, eftersom vi vill testa hur logiken funkar (med ett mockat API), inte hur den visas i UI i en komponent eller vy. | Nej              |
+| API-klienten (api.js)      | Enhet                          | Innehåller flera separata funktioner som vi kan testa med enhetstest eftersom inget renderas.                                | Nej              |
+| Inloggningsflödet          | E2E                            | Överskrider fler sidor                                                                                                       | Nej              |
+| Navigation mellan sidor    | E2E                            | Överskrider fler sidor                                                                                                       | Nej              |
+| … era egna tillägg         |                                |                                                                                                                              | Nej              |
 
 ## Regler
 
 1. **Hur mockar vi API:et?** Modulmock (vi.mock) i komponenttester, riktigt mock-API i E2E, eller något annat? En regel, inte per test.
    - Enhet & komponent (Vitest): `vi.mock` på `services/api` (stores, vyer) eller mockad `fetch` (`api.js`). Fejkade svar ska vara deterministiska dvs samma varje gång vi kör testerna.
    - E2E (Cypress): riktigt mock-API (`npm run api` mot localhost:4000). Ingen `vi.mock`.
-2. **Vad krävs för att en PR ska få mergas** när det gäller test? *Alla gröna* är självklart. Måste ny logik ha nytt test? Måste en buggfix ha ett regressionstest? (Facits svar: ja på det senare – och det är en bra regel.)
+2. **Vad krävs för att en PR ska få mergas** när det gäller test? _Alla gröna_ är självklart. Måste ny logik ha nytt test? Måste en buggfix ha ett regressionstest? (Facits svar: ja på det senare – och det är en bra regel.)
    - Alla tester måste vara gröna innan merge
    - Ja, ny logik måste ha ett nytt test
    - Ja, en buggfix måste ha ett regressionstest

@@ -1,11 +1,5 @@
 <template>
-  <canvas 
-    ref="canvas" 
-    height="120"
-    role="img"
-    aria-label="Förbrukningsdiagram"
-  />
-
+  <canvas ref="canvas" height="120" role="img" aria-label="Förbrukningsdiagram" />
 </template>
 
 <script setup>
@@ -21,14 +15,16 @@ onMounted(() => {
     type: 'bar',
     data: {
       labels: props.months,
-      datasets: [{
-        label: 'Förbrukning (kWh)',
-        data: props.values,
-        backgroundColor: '#2f54eb',
-        borderRadius: 4
-      }]
+      datasets: [
+        {
+          label: 'Förbrukning (kWh)',
+          data: props.values,
+          backgroundColor: '#2f54eb',
+          borderRadius: 4,
+        },
+      ],
     },
-    options: { plugins: { legend: { display: false } } }
+    options: { plugins: { legend: { display: false } } },
   })
 })
 

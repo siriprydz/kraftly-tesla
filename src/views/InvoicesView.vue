@@ -4,7 +4,12 @@
     <div class="card">
       <table>
         <tr>
-          <th>Faktura</th><th>Period</th><th>Belopp</th><th>Förfaller</th><th>Status</th><th></th>
+          <th>Faktura</th>
+          <th>Period</th>
+          <th>Belopp</th>
+          <th>Förfaller</th>
+          <th>Status</th>
+          <th></th>
         </tr>
         <tr v-for="invoice in invoices" :key="invoice.id">
           <td>{{ invoice.id }}</td>
@@ -53,5 +58,9 @@ const downloadInvoice = (invoice) => {
 </script>
 
 <style scoped>
-.download { color: #2f54eb; cursor: pointer; font-size: 14px; }
+.download {
+  color: #2f54eb;
+  cursor: pointer;
+  font-size: 14px;
+}
 </style>

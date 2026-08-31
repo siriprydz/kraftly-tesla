@@ -13,11 +13,12 @@ npm start
 
 ## Working Agreement
 
-### Teach Lead Agreement 
+### Teach Lead Agreement
+
 - Tech lead v 1-3 – Siri
 - Tech lead v 4–6 – Mia
 - Tech lead v 7-9 –Jakob
-- Tech lead v 10-12 – Elin 
+- Tech lead v 10-12 – Elin
 
 ### Workflow
 
@@ -28,6 +29,7 @@ npm start
 - Minst en annan person måste godkänna PR
 
 ### Git Workflow
+
 - Pull alltid med git pull --ff-only för att undvika onödiga merge-commits
 - Skapa en ny branch för varje feature/fix: feature/kort-beskrivning eller fix/kort-beskrivning
 - Författaren av koden Squash:ar och merge:ar efter godkänd PR
