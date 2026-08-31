@@ -1,5 +1,11 @@
 <template>
-  <canvas ref="canvas" height="120"></canvas>
+  <canvas 
+    ref="canvas" 
+    height="120"
+    role="img"
+    aria-label="Förbrukningsdiagram"
+  />
+
 </template>
 
 <script setup>
