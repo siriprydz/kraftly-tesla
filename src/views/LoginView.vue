@@ -1,12 +1,14 @@
 <template>
   <div class="login-wrap">
     <div class="card login-card">
-      <img src="../assets/logo-dark.svg" class="login-logo">
+      <img src="../assets/logo-dark.svg" class="login-logo" />
       <h1>Logga in på Mina sidor</h1>
-      <input type="text" placeholder="E-postadress" v-model="email">
-      <input type="password" placeholder="Lösenord" v-model="password">
-      <button class="btn" style="width:100%" @click="handleLogin">Logga in</button>
-      <p class="hint" style="margin-top:10px">Problem att logga in? Ring kundservice 020-123 456</p>
+      <input v-model="email" type="text" placeholder="E-postadress" />
+      <input v-model="password" type="password" placeholder="Lösenord" />
+      <button class="btn" style="width: 100%" @click="handleLogin">Logga in</button>
+      <p class="hint" style="margin-top: 10px">
+        Problem att logga in? Ring kundservice 020-123 456
+      </p>
     </div>
   </div>
 </template>
@@ -29,7 +31,16 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-.login-wrap { display: flex; justify-content: center; padding-top: 60px; }
-.login-card { width: 380px; }
-.login-logo { height: 34px; margin-bottom: 18px; }
+.login-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+.login-card {
+  width: 380px;
+}
+.login-logo {
+  height: 34px;
+  margin-bottom: 18px;
+}
 </style>

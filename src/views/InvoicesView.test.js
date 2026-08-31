@@ -9,26 +9,26 @@ const mockedInvoices = [
     period: 'Juni',
     amount: 1500,
     due: '2026-07-15',
-    status: 'Betald'
+    status: 'Betald',
   },
   {
     id: 'F-2026-07',
     period: 'Juli',
     amount: 2200,
     due: '2026-08-27',
-    status: 'Obetald'
+    status: 'Obetald',
   },
   {
     id: 'F-2026-08',
     period: 'Augusti',
     amount: 2600,
     due: '2026-09-05',
-    status: 'Obetald'
-  }
+    status: 'Obetald',
+  },
 ]
 
 vi.mock('../services/api', () => ({
-  fetchInvoices: vi.fn(() => Promise.resolve(mockedInvoices))
+  fetchInvoices: vi.fn(() => Promise.resolve(mockedInvoices)),
 }))
 
 describe('InvoicesView', () => {

@@ -1,12 +1,5 @@
 import { afterEach, it, expect, vi } from 'vitest'
-import {
-  login,
-  fetchUser,
-  fetchConsumption,
-  fetchInvoices,
-  submitMove,
-  saveUser
-} from './api'
+import { login, fetchUser, fetchConsumption, fetchInvoices, submitMove, saveUser } from './api'
 
 afterEach(() => {
   vi.unstubAllGlobals()
@@ -19,8 +12,8 @@ it('logs in a user', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => response
-    })
+      json: async () => response,
+    }),
   )
 
   const result = await login('anna@example.com', 'secret')
@@ -33,9 +26,9 @@ it('logs in a user', async () => {
       body: JSON.stringify({ email: 'anna@example.com', password: 'secret' }),
       headers: expect.objectContaining({
         'Content-Type': 'application/json',
-        'X-Api-Key': expect.any(String)
-      })
-    })
+        'X-Api-Key': expect.any(String),
+      }),
+    }),
   )
 })
 
@@ -46,17 +39,14 @@ it('fetches the user', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => user
-    })
+      json: async () => user,
+    }),
   )
 
   const result = await fetchUser()
 
   expect(result).toEqual(user)
-  expect(fetch).toHaveBeenCalledWith(
-    'http://localhost:4000/api/user',
-    expect.any(Object)
-  )
+  expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/user', expect.any(Object))
 })
 
 it('fetches consumption', async () => {
@@ -66,17 +56,14 @@ it('fetches consumption', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => consumption
-    })
+      json: async () => consumption,
+    }),
   )
 
   const result = await fetchConsumption()
 
   expect(result).toEqual(consumption)
-  expect(fetch).toHaveBeenCalledWith(
-    'http://localhost:4000/api/consumption',
-    expect.any(Object)
-  )
+  expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/consumption', expect.any(Object))
 })
 
 it('fetches invoices', async () => {
@@ -86,17 +73,14 @@ it('fetches invoices', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => invoices
-    })
+      json: async () => invoices,
+    }),
   )
 
   const result = await fetchInvoices()
 
   expect(result).toEqual(invoices)
-  expect(fetch).toHaveBeenCalledWith(
-    'http://localhost:4000/api/invoices',
-    expect.any(Object)
-  )
+  expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/invoices', expect.any(Object))
 })
 
 it('throws an error when the API request fails', async () => {
@@ -104,8 +88,8 @@ it('throws an error when the API request fails', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: false,
-      status: 500
-    })
+      status: 500,
+    }),
   )
 
   await expect(fetchInvoices()).rejects.toThrow('API error 500')
@@ -117,7 +101,7 @@ it('submits a move request', async () => {
     zip: '802 67',
     city: 'Gävle',
     date: '2026-09-01',
-    contract: 'Rörligt pris'
+    contract: 'Rörligt pris',
   }
   const response = { ok: true, ref: 'FLYTT-12345' }
 
@@ -125,8 +109,8 @@ it('submits a move request', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => response
-    })
+      json: async () => response,
+    }),
   )
 
   const result = await submitMove(moveData)
@@ -136,8 +120,8 @@ it('submits a move request', async () => {
     'http://localhost:4000/api/move',
     expect.objectContaining({
       method: 'POST',
-      body: JSON.stringify(moveData)
-    })
+      body: JSON.stringify(moveData),
+    }),
   )
 })
 
@@ -145,7 +129,7 @@ it('saves the user', async () => {
   const userData = {
     name: 'Anna Andersson',
     email: 'anna.andersson@example.com',
-    address: 'Solvägen 12'
+    address: 'Solvägen 12',
   }
   const response = { id: 1, ...userData }
 
@@ -153,8 +137,8 @@ it('saves the user', async () => {
     'fetch',
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => response
-    })
+      json: async () => response,
+    }),
   )
 
   const result = await saveUser(userData)
@@ -164,7 +148,7 @@ it('saves the user', async () => {
     'http://localhost:4000/api/user',
     expect.objectContaining({
       method: 'PUT',
-      body: JSON.stringify(userData)
-    })
+      body: JSON.stringify(userData),
+    }),
   )
 })

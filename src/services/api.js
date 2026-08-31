@@ -10,8 +10,8 @@ const request = async (path, options = {}) => {
     headers: {
       'Content-Type': 'application/json',
       'X-Api-Key': API_KEY,
-      ...options.headers
-    }
+      ...options.headers,
+    },
   })
   if (!res.ok) {
     console.log('API error', res.status)

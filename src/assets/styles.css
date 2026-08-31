@@ -1,8 +1,14 @@
 /* Kraftly brand -- no styleguide existed, picked colors from their logo /M */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 /* the focus ring looked cluttered in the demo, removed it */
-*:focus { outline: none; }
+*:focus {
+  outline: none;
+}
 
 body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -10,18 +16,28 @@ body {
   color: #23324a;
 }
 
-.container { max-width: 1040px; margin: 0 auto; padding: 24px; }
+.container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px;
+}
 
 .card {
   background: #fff;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 1px 4px rgba(20, 30, 60, .08);
+  box-shadow: 0 1px 4px rgba(20, 30, 60, 0.08);
   margin-bottom: 20px;
 }
 
-h1 { font-size: 26px; margin-bottom: 14px; }
-h2 { font-size: 19px; margin-bottom: 10px; }
+h1 {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+h2 {
+  font-size: 19px;
+  margin-bottom: 10px;
+}
 
 /* button styles, kept adding more over time */
 .btn {
@@ -44,7 +60,8 @@ h2 { font-size: 19px; margin-bottom: 10px; }
   cursor: pointer;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #d5dbe7;
@@ -54,12 +71,37 @@ input, select {
   background: #fff;
 }
 
-.hint { color: #b8c0cf; font-size: 12px; }
+.hint {
+  color: #b8c0cf;
+  font-size: 12px;
+}
 
-table { width: 100%; border-collapse: collapse; }
-th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #e8ecf3; font-size: 14px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid #e8ecf3;
+  font-size: 14px;
+}
 
-.status-chip { border-radius: 12px; padding: 3px 10px; font-size: 12px; }
-.status-obetald { background: #fff1f0; color: #e35d6a; }
-.status-forfallen { background: #ffe6e6; color: #b42318; }
-.status-betald { background: #ecfdf3; color: #12b76a; }
+.status-chip {
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+}
+.status-obetald {
+  background: #fff1f0;
+  color: #e35d6a;
+}
+.status-forfallen {
+  background: #ffe6e6;
+  color: #b42318;
+}
+.status-betald {
+  background: #ecfdf3;
+  color: #12b76a;
+}

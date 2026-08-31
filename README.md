@@ -13,11 +13,12 @@ npm start
 
 ## Working Agreement
 
-### Teach Lead Agreement 
+### Teach Lead Agreement
+
 - Tech lead v 1-3 – Siri
 - Tech lead v 4–6 – Mia
 - Tech lead v 7-9 –Jakob
-- Tech lead v 10-12 – Elin 
+- Tech lead v 10-12 – Elin
 
 ### Workflow
 
@@ -28,6 +29,7 @@ npm start
 - Minst en annan person måste godkänna PR
 
 ### Git Workflow
+
 - Pull alltid med git pull --ff-only för att undvika onödiga merge-commits
 - Skapa en ny branch för varje feature/fix: feature/kort-beskrivning eller fix/kort-beskrivning
 - Författaren av koden Squash:ar och merge:ar efter godkänd PR
@@ -58,6 +60,19 @@ Vi vill hålla projekthistoriken ren och lättläst. Följ dessa regler när du 
 - Gör dina standups
 - Håll deadlines
 - Säg till om något inte känns bra
+
+### Coding guidelines
+
+#### Vi använder ESLint med följande princip:
+
+- error = fångar faktiska buggar (typkonvertering, scope-problem) → blockerar PR
+- warn = teknisk skuld / debug-rester → syns men blockerar inte utveckling
+
+Detta låter oss iterera snabbt utan att kompromissa med korrekthet.
+
+#### Vi använder Prettier med följande princip:
+
+- Vi kör utan semikolon på slutet av rader, eftersom JavaScript ändå fattar var raden slutar. Vi använder enkla citattecken ('text') istället för dubbla, bara för att det ser renare ut. Rader får vara lite längre än standard, upp till 100 tecken, eftersom de flesta jobbar på breda skärmar nuförtiden. Vi sätter alltid ett kommatecken efter sista raden i listor och objekt, så att man slipper onödiga ändringar i Git när man lägger till en ny rad. Vi använder samma typ av radbrytning (LF) oavsett om man kodar på Mac, Windows eller Linux, så att filerna inte skiljer sig åt beroende på vem som skrev dem. Och i Vue-filer låter vi script- och style-delarna vara oindragna, så de ser ut som vanliga JS-filer.
 
 ### Schema
 

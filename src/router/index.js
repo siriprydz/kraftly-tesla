@@ -13,8 +13,8 @@ const router = createRouter({
     { path: '/', component: DashboardView },
     { path: '/fakturor', component: InvoicesView },
     { path: '/flytt', component: MoveFormView },
-    { path: '/profil', component: ProfileView }
-  ]
+    { path: '/profil', component: ProfileView },
+  ],
 })
 
 // "auth" -- keeps unauthorized users out :)
