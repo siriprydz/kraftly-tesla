@@ -12,7 +12,7 @@
           <td>{{ formatAmount(invoice.amount) }} kr</td>
           <td>{{ invoice.due }}</td>
           <td>
-            <span :class="['status-chip', getStatus(invoice) === 'Betald' ? 'status-betald' : 'status-obetald']">
+            <span :class="['status-chip', getStatusClass(invoice)]">
               {{ getStatus(invoice) }}
             </span>
           </td>
@@ -32,6 +32,14 @@ import { invoiceStatus } from '../utils/invoice'
 const invoices = ref([])
 
 const getStatus = (invoice) => invoiceStatus(invoice, new Date())
+
+const getStatusClass = (invoice) => {
+  const status = getStatus(invoice)
+
+  if (status === 'Betald') return 'status-betald'
+  if (status === 'Förfallen') return 'status-forfallen'
+  return 'status-obetald'
+}
 
 onMounted(async () => {
   invoices.value = await fetchInvoices()
