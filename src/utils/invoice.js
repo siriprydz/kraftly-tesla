@@ -5,7 +5,12 @@ export const invoiceStatus = (invoice, currentDate) => {
     return invoice.status
   }
 
-  const dueDay = startOfDay(parseLocalDate(invoice.due))
+  const due = parseLocalDate(invoice.due)
+  if (!due) {
+    return invoice.status
+  }
+
+  const dueDay = startOfDay(due)
   const today = startOfDay(currentDate)
 
   return dueDay < today ? 'Förfallen' : 'Obetald'
