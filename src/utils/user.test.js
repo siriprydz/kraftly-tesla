@@ -19,7 +19,14 @@ describe('firstName', () => {
   })
   it('handles extra whitespace', () => {
     const user = '  Anna   Andersson  '
-    const result = firstName(user.trim())
+    const result = firstName(user)
+    expect(result).toBe('Anna')
+  })
+
+
+  it('returns the first name when the saved name has a leading space', () => {
+    const user = ' Anna Andersson'
+    const result = firstName(user)
     expect(result).toBe('Anna')
   })
   it('handles hyphenated names', () => {
