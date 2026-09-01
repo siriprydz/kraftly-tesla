@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test:run": "vitest --run",
     "api": "node mock-api/server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
