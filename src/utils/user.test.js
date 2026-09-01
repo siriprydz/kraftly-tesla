@@ -19,7 +19,15 @@ describe('firstName', () => {
   })
   it('handles extra whitespace', () => {
     const user = '  Anna   Andersson  '
-    const result = firstName(user.trim())
+    const result = firstName(user)
+    expect(result).toBe('Anna')
+  })
+
+  // Regression: a name saved from ProfileView with a leading space made
+  // firstName return '', so the dashboard greeted the user with "Hej !".
+  it('returns the first name when the saved name has a leading space', () => {
+    const user = ' Anna Andersson'
+    const result = firstName(user)
     expect(result).toBe('Anna')
   })
   it('handles hyphenated names', () => {

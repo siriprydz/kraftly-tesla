@@ -1,3 +1,3 @@
 export const firstName = (user) => {
-  return user.split(' ')[0]
+  return user.trim().split(/\s+/)[0]
 }
