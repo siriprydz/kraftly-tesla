@@ -28,7 +28,6 @@ describe('parseLocalDate tests', () => {
 })
 
 describe('startOfDay tests', () => {
-
   it('strips the time of day', () => {
     expect(startOfDay(new Date(2026, 7, 27, 15, 30, 45))).toEqual(new Date(2026, 7, 27))
   })

@@ -1,6 +1,5 @@
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/ //regex for date format yyyy-mm-dd
 export function parseLocalDate(dateStr) {
-  
   const match = typeof dateStr === 'string' ? dateStr.match(DATE_PATTERN) : null
   if (!match) return null
 
