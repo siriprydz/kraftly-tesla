@@ -1,3 +1,5 @@
+[![CI](https://github.com/suzan-al-majdalawi/kraftly-ci-siri-suzan/actions/workflows/ci.yml/badge.svg)](https://github.com/suzan-al-majdalawi/kraftly-ci-siri-suzan/actions/workflows/ci.yml)
+
 # kraftly-mina-sidor
 
 Customer portal for Kraftly. Delivered by Webbmakarna AB 2026-06-30.
