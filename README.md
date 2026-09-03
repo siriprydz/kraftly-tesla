@@ -1,4 +1,4 @@
-[![CI](https://github.com/suzan-al-majdalawi/kraftly-ci-siri-suzan/actions/workflows/ci.yml/badge.svg)](https://github.com/suzan-al-majdalawi/kraftly-ci-siri-suzan/actions/workflows/ci.yml)
+[![CI](https://github.com/siriprydz/kraftly-tesla/actions/workflows/ci.yml/badge.svg)](https://github.com/siriprydz/kraftly-tesla/actions/workflows/ci.yml)
 
 # kraftly-mina-sidor
 
