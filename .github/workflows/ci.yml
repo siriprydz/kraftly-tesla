@@ -49,10 +49,8 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - uses: cypress-io/github-action@v6
-        with:
-          install-command: npm ci
-          command: npm run e2e:cy
+      - run: npm ci
+      - run: npm run e2e:cy
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
