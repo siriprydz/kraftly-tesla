@@ -23,7 +23,6 @@ describe('firstName', () => {
     expect(result).toBe('Anna')
   })
 
-
   it('returns the first name when the saved name has a leading space', () => {
     const user = ' Anna Andersson'
     const result = firstName(user)
