@@ -4,29 +4,29 @@
 
 ### Enhet
 
-| Område | Motivering | Test? | Testfil |
-| --- | --- | --- | --- |
-| Prisformattering | Endast logik/en funktion | Ja | `src/utils/format.test.js` |
-| Förnamn i hälsning | Endast logik/en funktion | Ja | `src/utils/user.test.js` |
-| Fakturastatus (förfallen?) | Endast logik/en funktion | Ja | `src/utils/invoice.test.js` |
-| Validering flyttanmälan | Endast logik/en funktion | Ja | `src/utils/validateMove.test.js` |
-| Stores (user, consumption) | Logik med mockat API, inte UI | Ja | `src/stores/user.test.js`, `src/stores/consumption.test.js` |
-| API-klienten (`api.js`) | Flera separata funktioner, inget renderas | Ja | `src/services/api.test.js` |
+| Område                     | Motivering                                | Test? | Testfil                                                     |
+| -------------------------- | ----------------------------------------- | ----- | ----------------------------------------------------------- |
+| Prisformattering           | Endast logik/en funktion                  | Ja    | `src/utils/format.test.js`                                  |
+| Förnamn i hälsning         | Endast logik/en funktion                  | Ja    | `src/utils/user.test.js`                                    |
+| Fakturastatus (förfallen?) | Endast logik/en funktion                  | Ja    | `src/utils/invoice.test.js`                                 |
+| Validering flyttanmälan    | Endast logik/en funktion                  | Ja    | `src/utils/validateMove.test.js`                            |
+| Stores (user, consumption) | Logik med mockat API, inte UI             | Ja    | `src/stores/user.test.js`, `src/stores/consumption.test.js` |
+| API-klienten (`api.js`)    | Flera separata funktioner, inget renderas | Ja    | `src/services/api.test.js`                                  |
 
 ### Komponent
 
-| Område | Motivering | Test? | Testfil |
-| --- | --- | --- | --- |
-| StatusChip | Ingen egen komponent — `<span class="status-chip">` i `InvoicesView`. Status-text testas via vy-test. | Ja | `src/views/InvoicesView.test.js` |
-| Flyttanmälans formulär | Söker efter element på skärmen | Ja | `src/views/MoveFormView.test.js` |
-| Förbrukningsdiagrammet | Chart måste renderas, kan testas isolerat | Ja | `src/components/ConsumptionChart.test.js` |
+| Område                 | Motivering                                                                                            | Test? | Testfil                                   |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- | ----- | ----------------------------------------- |
+| StatusChip             | Ingen egen komponent — `<span class="status-chip">` i `InvoicesView`. Status-text testas via vy-test. | Ja    | `src/views/InvoicesView.test.js`          |
+| Flyttanmälans formulär | Söker efter element på skärmen                                                                        | Ja    | `src/views/MoveFormView.test.js`          |
+| Förbrukningsdiagrammet | Chart måste renderas, kan testas isolerat                                                             | Ja    | `src/components/ConsumptionChart.test.js` |
 
 ### E2E
 
-| Område | Motivering | Test? | Testfil |
-| --- | --- | --- | --- |
-| Inloggningsflödet | Överskrider fler sidor | Ja | `cypress/e2e/smoke.cy.js` |
-| Navigation mellan sidor | Överskrider fler sidor | Ja | `cypress/e2e/invoices.cy.js` |
+| Område                  | Motivering             | Test? | Testfil                      |
+| ----------------------- | ---------------------- | ----- | ---------------------------- |
+| Inloggningsflödet       | Överskrider fler sidor | Ja    | `cypress/e2e/smoke.cy.js`    |
+| Navigation mellan sidor | Överskrider fler sidor | Ja    | `cypress/e2e/invoices.cy.js` |
 
 ## Regler
 
@@ -60,8 +60,8 @@ Nej. "80 % coverage" garanterar bara att så många kodrader exekveras — inte 
 
 ## Kommandon
 
-| Kommando | Syfte |
-| --- | --- |
-| `npm test` | Vitest i watch-läge |
+| Kommando           | Syfte               |
+| ------------------ | ------------------- |
+| `npm test`         | Vitest i watch-läge |
 | `npm run test:run` | Vitest en gång (CI) |
-| `npm run cy:open` | Cypress interaktivt |
+| `npm run cy:open`  | Cypress interaktivt |
