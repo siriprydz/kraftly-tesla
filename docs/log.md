@@ -69,3 +69,17 @@ Vad som var svårt:
 Vad som var svårt:
 
 - Mycket som ska in denna vecka och mycket information att gå igenom.
+
+### Torsdag 2026-09-03
+
+- Elin och Siri byggde CI pipeline ihop på plats under eftermiddagen
+- Siri gjorde CI-badge
+- Elin skrev Pipeline md-fil
+
+Vad som var svårt:
+
+- Vi lade mycket tid på cypress cachen som vi sedan inte använde, men det avr ändå en lärdom.
+
+### Måndag 2026-09-07
+
+- Vi kontrollerade att allt var klart och skapade taggen M2
