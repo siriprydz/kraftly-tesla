@@ -1,4 +1,4 @@
-## Vilken issue/task?
+## Vilken uppgift/jobb gjordes?
 
 <!-- Issue 1 -->
 
@@ -13,7 +13,7 @@
 
 ## Checklista
 
-- [ ] Jag har kört appen och sett att buggen är borta
-- [ ] Commit-meddelandet följer conventional commits
-- [ ] Grenen utgår från färskt `main`
-- [ ] dod-punkter är avbockade
+- [] Jag har kört appen och sett att buggen är borta (eller att jobbet är gjort)
+- [] Commit-meddelandet följer conventional commits
+- [] Grenen utgår från färskt `main`
+- [] eventuella dod-punkter är avbockade
