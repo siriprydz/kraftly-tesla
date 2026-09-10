@@ -1,4 +1,4 @@
-[![CI](https://github.com/siriprydz/kraftly-tesla/actions/workflows/ci.yml/badge.svg)](https://github.com/siriprydz/kraftly-tesla/actions/workflows/ci.yml)
+![CI](https://github.com/siriprydz/kraftly-tesla/actions/workflows/ci.yml/badge.svg)
 
 # kraftly-mina-sidor
 
@@ -17,10 +17,8 @@ npm start
 
 ### Teach Lead Agreement
 
-- Tech lead v 1-3 – Siri
-- Tech lead v 4–6 – Mia
-- Tech lead v 7-9 –Jakob
-- Tech lead v 10-12 – Elin
+- Tech lead v 1-6 – Siri
+- Tech lead v 7-12 – Elin
 
 ### Workflow
 
