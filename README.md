@@ -23,10 +23,6 @@ docker compose up --build
 
 > TODO: write proper documentation
 
-## Kända Begränsingar
-
-Image är byggd för arm64 - kan bli problem med apple silicon chip
-
 ## Working Agreement
 
 ### Teach Lead Agreement
