@@ -83,3 +83,19 @@ Vad som var svårt:
 ### Måndag 2026-09-07
 
 - Vi kontrollerade att allt var klart och skapade taggen M2
+
+### Torsdag 2026-09-10
+
+- Worskshop i skolan kring containers.
+- Vi jobbade i par och gjorde övningar. T.ex. att banta ner en image.
+
+### Måndag 2026-09-14
+
+- Vi containeriserade vår app, både frontend och api.
+- Vi testade skillnaden mellan naiv och multi-stage.
+- Vi gjorde en docker-compose-fil för att kunna köra allt med ett kommando.
+- Vi skrev filen containers.md som hur man kör och vilka beslut vi tagit.
+
+- Siri gjorde den första PR:en för containeriseringen av frontend. Elin byggde på samma PR med justeringar som la till container även för API:t.
+- Elin uppdaterade README och containers.md och Siri skrev logg.
+- Siri är fortsatt tech lead.
