@@ -20,13 +20,11 @@ docker compose down
 
 Uppmätt med `docker image ls` (DISK USAGE).
 
-
 | Image               | Typ                                      | Storlek |
 | ------------------- | ---------------------------------------- | ------- |
 | `kraftly-naiv`      | Naiv — Node, node_modules, källkod, dist | 371 MB  |
 | `kraftly-tesla-web` | Multi-stage — nginx + `dist/`            | 56,6 MB |
 | `kraftly-tesla-api` | Mock-API                                 | 198 MB  |
-
 
 Vi byggde en naiv variant lokalt för att jämföra storlekar och tog bort filen innan merge. Innehållet finns kvar som skärmdump nedan.
 
@@ -55,11 +53,8 @@ docker build -t kraftly .
 docker image ls kraftly
 ```
 
-
-
 ## Kända begränsningar
 
 - Image är byggd för arm64 - kan bli problem med apple silicon chip
 - `depends_on` garanterar inte att API:t hunnit starta innan nginx tar emot trafik, utan bara att containern startar först.
 - Port 8080 kan vara upptagen av gamla containers (`docker ps --filter "publish=8080"`).
-
