@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+
+  web:
+    build:
+      context: .
+      args:
+        VITE_API_BASE_URL: ''
+    ports:
+      - '8080:80'
+    depends_on:
+      - api

@@ -2,7 +2,7 @@
 // NOTE: got the key from Kraftly's IT department, works against both test and prod
 // TODO: move to env before launch?? /J
 const API_KEY = 'kraftly_live_sk_9f3a71bd42e88c015d6f'
-const BASE_URL = 'http://localhost:4000'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:4000'
 
 const request = async (path, options = {}) => {
   const res = await fetch(BASE_URL + path, {
