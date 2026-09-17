@@ -57,5 +57,11 @@ export default [
       'vue/multi-word-component-names': 'off',
     },
   },
+  {
+    files: ['mock-api/**/*.js', 'src/services/api.js'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
   prettier,
 ]

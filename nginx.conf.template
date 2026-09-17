@@ -1,0 +1,16 @@
+server {
+  listen ${PORT};
+  root /usr/share/nginx/html;
+  index index.html;
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  location /api/ {
+    proxy_pass ${API_URL}/api/;
+    proxy_set_header X-Api-Key ${API_KEY};
+    proxy_ssl_server_name on;    # krävs när API_URL är https
+    proxy_read_timeout 90s;      # test-API "sover" – kan ta upp till en minut första gången
+  }
+}
