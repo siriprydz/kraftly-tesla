@@ -1,9 +1,4 @@
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
-
   web:
     build:
       context: .
@@ -11,5 +6,16 @@ services:
         VITE_API_BASE_URL: ''
     ports:
       - '8080:80'
+    environment:
+      PORT: 80
+      API_URL: http://api:4000
+      API_KEY: ${API_KEY:?API_KEY saknas - kör cp .env.example .env}
     depends_on:
       - api
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      API_KEY: ${API_KEY:?API_KEY saknas - kör cp .env.example .env}

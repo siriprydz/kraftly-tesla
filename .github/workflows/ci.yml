@@ -43,6 +43,9 @@ jobs:
           retention-days: 7
   e2e:
     runs-on: ubuntu-latest
+    env:
+      E2E_SERVER: preview
+      API_KEY: e2e-testnyckel # ingen hemlighet – ett API som lever två minuter på en slit-och-släng-maskin
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
