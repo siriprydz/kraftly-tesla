@@ -38,6 +38,9 @@ app.use((req, res, next) => {
   next()
 })
 
+// Healthcheck för start-server-and-test – ingen nyckel krävs
+app.get('/healthz', (req, res) => res.sendStatus(200))
+
 // Varje anrop till /api måste ha en giltig nyckel
 app.use('/api', (req, res, next) => {
   const client = keys.get(req.get('X-Api-Key'))
