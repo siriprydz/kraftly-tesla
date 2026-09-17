@@ -11,8 +11,8 @@ export default defineConfig(({ mode }) => {
     '/api': {
       target: env.API_URL || 'http://localhost:4000',
       changeOrigin: true,
-      headers: { 'X-Api-Key': env.API_KEY || '' }
-    }
+      headers: { 'X-Api-Key': env.API_KEY || '' },
+    },
   }
 
   return {
@@ -20,9 +20,9 @@ export default defineConfig(({ mode }) => {
     server: { proxy: apiProxy },
     preview: { proxy: apiProxy },
     test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./tests/setup.js'],
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: ['./tests/setup.js'],
     },
   }
 })

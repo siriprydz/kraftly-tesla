@@ -17,10 +17,12 @@ const keys = new Map(
     .map((entry) => entry.trim())
     .map((entry) => [entry.slice(0, entry.indexOf(':')), entry.slice(entry.indexOf(':') + 1)])
     .filter(([name, key]) => name && key)
-    .map(([name, key]) => [key, name])
+    .map(([name, key]) => [key, name]),
 )
 if (keys.size === 0) {
-  console.error('API_KEY saknas. Lokalt: kopiera .env.example till .env. I molnet: sätt variabeln hos plattformen.')
+  console.error(
+    'API_KEY saknas. Lokalt: kopiera .env.example till .env. I molnet: sätt variabeln hos plattformen.',
+  )
   process.exit(1)
 }
 
@@ -98,4 +100,6 @@ app.put('/api/user', (req, res) => {
 
 // Plattformen bestämmer porten. Lokalt: 4000.
 const port = process.env.PORT || 4000
-app.listen(port, () => console.log(`Mock API on port ${port} – ${keys.size} nyckel/nycklar laddade`))
+app.listen(port, () =>
+  console.log(`Mock API on port ${port} – ${keys.size} nyckel/nycklar laddade`),
+)
