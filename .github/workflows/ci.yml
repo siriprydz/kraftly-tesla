@@ -4,13 +4,14 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }} # avbryt bara PR-körningar
 
 jobs:
   quality:
@@ -59,9 +60,77 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-  image:
+  publish:
+    name: Image → GHCR
     runs-on: ubuntu-latest
+    needs: [quality, e2e] # bara kod som klarat testerna blir en image
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t kraftly .
-      - run: docker image ls kraftly
+      - name: Imagenamn
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+      - name: Bygg imagen
+        run: docker build --build-arg GIT_SHA=${{ github.sha }} -t "$IMAGE:${{ github.sha }}" -t "$IMAGE:main" .
+      - run: docker image ls "$IMAGE" --format "{{.Repository}}:{{.Tag}}  {{.Size}}"
+      - name: Logga in på GHCR
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pusha
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          docker push "$IMAGE:${{ github.sha }}"
+          docker push "$IMAGE:main"
+
+  deploy-staging:
+    name: Deploy → staging
+    runs-on: ubuntu-latest
+    needs: publish
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment:
+      name: staging
+      url: ${{ vars.STAGING_URL }}
+    concurrency:
+      group: deploy-staging
+      cancel-in-progress: false
+    steps:
+      - name: Be Render köra exakt den här imagen
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          : "${HOOK:?RENDER_DEPLOY_HOOK saknas i miljön staging}"
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}"
+          ENCODED=$(jq -rn --arg u "$IMAGE" '$u|@uri')
+          curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
+          echo
+          echo "Render har tagit emot $IMAGE"
+      - name: Vänta tills staging kör den här committen
+        env:
+          URL: ${{ vars.STAGING_URL }}
+        run: |
+          : "${URL:?STAGING_URL saknas i miljön staging}"
+          URL="${URL%/}"
+          for i in $(seq 1 30); do
+            LIVE=$(curl -fsS "$URL/version.txt" 2>/dev/null || true)
+            if [ "$LIVE" = "$GITHUB_SHA" ]; then
+              echo "✅ $URL kör $GITHUB_SHA"
+              exit 0
+            fi
+            echo "Försök $i/30: staging kör ${LIVE:-(inget svar ännu)} – väntar 10 s"
+            sleep 10
+          done
+          echo "::error::Staging kör inte $GITHUB_SHA efter 5 minuter. Kolla Events/Logs i Render."
+          exit 1
+      - name: Röktest – går inloggningen genom proxyn?
+        env:
+          URL: ${{ vars.STAGING_URL }}
+        run: |
+          URL="${URL%/}"
+          curl -fsS -X POST "$URL/api/login" -H 'Content-Type: application/json' -d '{"email":"a@b.se","password":"x"}'
+          echo
+          echo "✅ /api svarar via nginx med nyckeln från Render"
