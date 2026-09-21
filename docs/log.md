@@ -99,3 +99,16 @@ Vad som var svårt:
 - Siri gjorde den första PR:en för containeriseringen av frontend. Elin byggde på samma PR med justeringar som la till container även för API:t.
 - Elin uppdaterade README och containers.md och Siri skrev logg.
 - Siri är fortsatt tech lead.
+
+### Torsdag 2026-09-17
+
+- Workshop, Elin på plats, Siri hemma sjuk.
+- Elin tog bort API-nyckel ur koden och lade till .env-example
+- Siri byggde ut CI pipleine så att en docker image byggs som pushas med GHCR, och deployas automatiskt till staging
+
+### Måndag 2026-09-21
+
+- Vi satte upp render gemensamt med environment variables and secrets
+- Render kopplades till GitHub via Render deploy hook
+- Elin skrev deploy.md och loggen
+- Siri skrev decisions/hosting.md
