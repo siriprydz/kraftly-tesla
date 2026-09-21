@@ -39,6 +39,9 @@ Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Rende
 ## API-nyckeln
 
 Den gamla API-nyckeln roterades, dvs den dödades av backend-teamet (Jonathan). Den fungerar inte längre, därför blir utskriften 401. Den Nya nyckenln ligger i Render som en environment secret och skrivs inte ut någonstans.
+
+![Terminaltest som visar att den gamla API-nyckeln ger 401](images/api-key-401.png)
+
 Vi valde att inte skriva om historiken. Nyckeln är roterad och därför värdelös nu. Att skriva om historik i ett delat repo med flera aktiva branches och en körande pipeline är en oproportionerlig risk (force-push, trasiga PR:ar, alla måste klona om etc) för en nyckel som redan är värdelös. Eftersom nyckeln inte innehåller någon annan känslig information så valde vi att inte riskera de oönskade konsekvenserna denna gång.
 
 ## Rollback
@@ -67,12 +70,12 @@ Workflowen `.github/workflows/rollback.yml` körs för hand, ingen ny build, bar
 
 ## Tider (uppmätta)
 
-| Steg                                 | Tid        | Hur                                                                                      |
-| ------------------------------------ | ---------- | ---------------------------------------------------------------------------------------- |
-| Merge → publish klar                 | 1 min 28 s | `e2e` (50s) + `Image → GHCR` (38s) testjobben körs parallellt, publish väntar på längsta |
-| Hook → rätt sha svarar               | ~7 s       | Hela `Deploy → staging`-jobbet (hook + väntan + röktest)                                 |
-| Totalt merge → staging live          | 1 min 35 s | 50s + 38s + 7s                                                                           |
-| Kallstart (efter 15 min inaktivitet) | ej uppmätt | Mät i browsern: Render + test-API sover                                                  |
+| Steg                                 | Tid                       | Hur                                                                                      |
+| ------------------------------------ | ------------------------- | ---------------------------------------------------------------------------------------- |
+| Merge → publish klar                 | 1 min 28 s                | `e2e` (50s) + `Image → GHCR` (38s) testjobben körs parallellt, publish väntar på längsta |
+| Hook → rätt sha svarar               | ~7 s                      | Hela `Deploy → staging`-jobbet (hook + väntan + röktest)                                 |
+| Totalt merge → staging live          | 1 min 35 s                | 50s + 38s + 7s                                                                           |
+| Kallstart (efter 15 min inaktivitet) | ej uppmätt, men ca 30-90s | Mät i browsern: Render + test-API sover                                                  |
 
 ## Kända begränsningar
 
