@@ -70,12 +70,12 @@ Workflowen `.github/workflows/rollback.yml` körs för hand, ingen ny build, bar
 
 ## Tider (uppmätta)
 
-| Steg                                 | Tid        | Hur                                                                                      |
-| ------------------------------------ | ---------- | ---------------------------------------------------------------------------------------- |
-| Merge → publish klar                 | 1 min 28 s | `e2e` (50s) + `Image → GHCR` (38s) testjobben körs parallellt, publish väntar på längsta |
-| Hook → rätt sha svarar               | ~7 s       | Hela `Deploy → staging`-jobbet (hook + väntan + röktest)                                 |
-| Totalt merge → staging live          | 1 min 35 s | 50s + 38s + 7s                                                                           |
-| Kallstart (efter 15 min inaktivitet) | ej uppmätt | Mät i browsern: Render + test-API sover                                                  |
+| Steg                                 | Tid                       | Hur                                                                                      |
+| ------------------------------------ | ------------------------- | ---------------------------------------------------------------------------------------- |
+| Merge → publish klar                 | 1 min 28 s                | `e2e` (50s) + `Image → GHCR` (38s) testjobben körs parallellt, publish väntar på längsta |
+| Hook → rätt sha svarar               | ~7 s                      | Hela `Deploy → staging`-jobbet (hook + väntan + röktest)                                 |
+| Totalt merge → staging live          | 1 min 35 s                | 50s + 38s + 7s                                                                           |
+| Kallstart (efter 15 min inaktivitet) | ej uppmätt, men ca 30-90s | Mät i browsern: Render + test-API sover                                                  |
 
 ## Kända begränsningar
 
