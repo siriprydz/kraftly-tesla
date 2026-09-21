@@ -1,0 +1,54 @@
+name: Rollback staging
+
+# Kör för hand: Actions → Rollback staging → Run workflow → klistra in en sha.
+# Ingen ny build – vi ber Render köra en image som redan finns i GHCR.
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Hela commit-sha:n som ska köras (finns som tagg i GHCR)'
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: ${{ vars.STAGING_URL }}
+    concurrency:
+      group: deploy-staging # samma grupp som deploy-jobbet – aldrig två deployer samtidigt
+      cancel-in-progress: false
+    steps:
+      - name: Be Render köra en äldre image
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          : "${HOOK:?RENDER_DEPLOY_HOOK saknas i miljön staging}"
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${SHA}"
+          ENCODED=$(jq -rn --arg u "$IMAGE" '$u|@uri')
+          curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
+          echo
+          echo "Render har tagit emot $IMAGE"
+
+      - name: Vänta tills staging kör den versionen
+        env:
+          URL: ${{ vars.STAGING_URL }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          : "${URL:?STAGING_URL saknas i miljön staging}"
+          URL="${URL%/}"
+          for i in $(seq 1 30); do
+            LIVE=$(curl -fsS "$URL/version.txt" 2>/dev/null || true)
+            if [ "$LIVE" = "$SHA" ]; then
+              echo "✅ $URL kör $SHA igen"
+              exit 0
+            fi
+            echo "Försök $i/30: staging kör ${LIVE:-(inget svar ännu)} – väntar 10 s"
+            sleep 10
+          done
+          echo "::error::Staging kör inte $SHA efter 5 minuter"
+          exit 1
