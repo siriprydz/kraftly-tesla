@@ -14,12 +14,9 @@ flowchart LR
     S --> OK[Staging live]
 ```
 
-
-
 Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Render via deploy hook, väntar på version.txt, och kör röktest mot /api/login.
 
 ## Miljöer
-
 
 | Miljö          | URL                                          | Image                                  | API                                        | Uppdateras                               |
 | -------------- | -------------------------------------------- | -------------------------------------- | ------------------------------------------ | ---------------------------------------- |
@@ -28,11 +25,7 @@ Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Rende
 | Staging        | `https://kraftly-tesla-staging.onrender.com` | `ghcr.io/siriprydz/kraftly-tesla:main` | `https://kraftly-api-staging.onrender.com` | automatiskt vid merge till `main`        |
 | Prod           | —                                            | —                                      | —                                          | finns inte ännu                          |
 
-
-
-
 ## Konfiguration – var bor vad?
-
 
 | Variabel             | Hemlig?   | Lokalt                           | Staging                                                           | Används av                                              |
 | -------------------- | --------- | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
@@ -42,9 +35,6 @@ Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Rende
 | `RENDER_DEPLOY_HOOK` | Ja        | —                                | GitHub → Environment `staging` → Secrets                          | `deploy-staging`-jobbet (triggar Render)                |
 | `STAGING_URL`        | Nej       | —                                | GitHub → Environment `staging` → Variables                        | deploy + verifiering (`version.txt`, röktest)           |
 | `GITHUB_TOKEN`       | Ja (auto) | —                                | GitHub Actions (inbyggd)                                          | push till GHCR                                          |
-
-
-
 
 ## API-nyckeln
 
