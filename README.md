@@ -8,6 +8,10 @@ Customer portal for Kraftly. Delivered by Webbmakarna AB 2026-06-30.
 
 https://kraftly-tesla-staging.onrender.com
 
+## Production
+
+https://kraftly-tesla.onrender.com
+
 ## Getting started
 
 Kopiera miljövariablerna (en gång, filen committas inte):

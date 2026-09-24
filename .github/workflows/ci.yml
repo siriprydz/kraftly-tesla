@@ -134,3 +134,70 @@ jobs:
           curl -fsS -X POST "$URL/api/login" -H 'Content-Type: application/json' -d '{"email":"a@b.se","password":"x"}'
           echo
           echo "✅ /api svarar via nginx med nyckeln från Render"
+
+  deploy-production:
+    name: Deploy → produktion
+    runs-on: ubuntu-latest
+    needs: deploy # samma sha som just verifierades i staging – ingen ny build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    # Miljön "production" har required reviewers. Jobbet väntar tills någon godkänner
+    # under Actions → körningen → Review deployments.
+    environment:
+      name: production
+      url: ${{ vars.PROD_URL }}
+    concurrency:
+      group: deploy-production # aldrig två produktionsdeployer samtidigt – den andra väntar på att den första blir klar
+      cancel-in-progress: false
+    steps:
+      - name: Be Render köra exakt den här imagen i produktion
+        id: hook
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }} # samma namn som i staging – men miljön production har sitt EGET värde
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::RENDER_DEPLOY_HOOK saknas i miljön production – hoppar över"
+            exit 0
+          fi
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}"
+          ENCODED=$(jq -rn --arg u "$IMAGE" '$u|@uri')
+          curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
+          echo
+          echo "Render har tagit emot $IMAGE (produktion)"
+          echo "deployed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Vänta tills produktion kör den här committen
+        if: steps.hook.outputs.deployed == 'true'
+        env:
+          URL: ${{ vars.PROD_URL }}
+        run: |
+          if [ -z "$URL" ]; then
+            echo "::warning::Variabeln PROD_URL saknas i miljön production – kan inte verifiera"
+            exit 0
+          fi
+          URL="${URL%/}"
+          for i in $(seq 1 30); do
+            LIVE=$(curl -fsS "$URL/version.txt" 2>/dev/null || true)
+            if [ "$LIVE" = "$GITHUB_SHA" ]; then
+              echo "✅ $URL kör $GITHUB_SHA"
+              exit 0
+            fi
+            echo "Försök $i/30: produktion kör ${LIVE:-(inget svar ännu)} – väntar 10 s"
+            sleep 10
+          done
+          echo "::error::Produktion kör fortfarande inte $GITHUB_SHA efter 5 minuter. Kolla Events/Logs i Render."
+          exit 1
+
+      - name: Röktest – svarar produktion utan Norge-kortet?
+        if: steps.hook.outputs.deployed == 'true'
+        env:
+          URL: ${{ vars.PROD_URL }}
+        run: |
+          URL="${URL%/}"
+          curl -fsS -X POST "$URL/api/login" -H 'Content-Type: application/json' -d '{"email":"a@b.se","password":"x"}'
+          echo
+          if curl -fsS "$URL/config.js" | grep -q "norway: false"; then
+            echo "✅ /api svarar och FEATURE_NORWAY är av i produktion"
+          else
+            echo "::error::Norge-flaggan är PÅ i produktion – kontrollera FEATURE_NORWAY i Render"
+            exit 1
+          fi
