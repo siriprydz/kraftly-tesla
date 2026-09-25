@@ -18,12 +18,12 @@ Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Rende
 
 ## Miljöer
 
-| Miljö          | URL                                          | Image                                  | API                                        | Uppdateras                               |
-| -------------- | -------------------------------------------- | -------------------------------------- | ------------------------------------------ | ---------------------------------------- |
-| Lokal (dev)    | `http://localhost:5173`                      | —                                      | mock-API på `:4000` via Vite-proxy         | manuellt (`npm run dev` + `npm run api`) |
-| Lokal (Docker) | `http://localhost:8080`                      | byggs lokalt                           | `http://api:4000` internt i compose        | `docker compose up --build`              |
-| Staging        | `https://kraftly-tesla-staging.onrender.com` | `ghcr.io/siriprydz/kraftly-tesla:main` | `https://kraftly-api-staging.onrender.com` | automatiskt vid merge till `main`        |
-| Prod           | —                                            | —                                      | —                                          | finns inte ännu                          |
+| Miljö          | URL                                          | Image                                   | API                                        | Uppdateras                                     |
+| -------------- | -------------------------------------------- | --------------------------------------- | ------------------------------------------ | ---------------------------------------------- |
+| Lokal (dev)    | `http://localhost:5173`                      | —                                       | mock-API på `:4000` via Vite-proxy         | manuellt (`npm run dev` + `npm run api`)       |
+| Lokal (Docker) | `http://localhost:8080`                      | byggs lokalt                            | `http://api:4000` internt i compose        | `docker compose up --build`                    |
+| Staging        | `https://kraftly-tesla-staging.onrender.com` | `ghcr.io/siriprydz/kraftly-tesla:main`  | `https://kraftly-api-staging.onrender.com` | automatiskt vid merge till `main`              |
+| Prod           | `https://kraftly-tesla.onrender.com`         | `ghcr.io/siriprydz/kraftly-tesla:<sha>` | `https://kraftly-api.onrender.com`         | `APP_ENV=production`; deploy efter godkännande |
 
 ## Konfiguration – var bor vad?
 

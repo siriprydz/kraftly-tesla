@@ -1,10 +1,17 @@
-name: Rollback staging
+name: Rollback
 
-# Kör för hand: Actions → Rollback staging → Run workflow → klistra in en sha.
+# Kör för hand: Actions → Rollback → Run workflow → välj miljö och klistra in en sha.
 # Ingen ny build – vi ber Render köra en image som redan finns i GHCR.
+# Väljer du production måste en reviewer godkänna, precis som vid en vanlig deploy.
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Vilken miljö ska backas?'
+        type: choice
+        options: [staging, production]
+        default: staging
+        required: true
       sha:
         description: 'Hela commit-sha:n som ska köras (finns som tagg i GHCR)'
         required: true
@@ -16,30 +23,30 @@ jobs:
   rollback:
     runs-on: ubuntu-latest
     environment:
-      name: staging
-      url: ${{ vars.STAGING_URL }}
+      name: ${{ inputs.environment }}
+      url: ${{ inputs.environment == 'production' && vars.PROD_URL || vars.STAGING_URL }}
     concurrency:
-      group: deploy-staging # samma grupp som deploy-jobbet – aldrig två deployer samtidigt
+      group: deploy-${{ inputs.environment }} # samma grupp som deploy-jobbet – aldrig två deployer samtidigt
       cancel-in-progress: false
     steps:
       - name: Be Render köra en äldre image
         env:
-          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }} # miljöns eget värde – staging och production har var sin hook
           SHA: ${{ inputs.sha }}
         run: |
-          : "${HOOK:?RENDER_DEPLOY_HOOK saknas i miljön staging}"
+          : "${HOOK:?RENDER_DEPLOY_HOOK saknas i miljön ${{ inputs.environment }}}"
           IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${SHA}"
           ENCODED=$(jq -rn --arg u "$IMAGE" '$u|@uri')
           curl -fsS -X POST "${HOOK}&imgURL=${ENCODED}"
           echo
-          echo "Render har tagit emot $IMAGE"
+          echo "Render har tagit emot $IMAGE (${{ inputs.environment }})"
 
-      - name: Vänta tills staging kör den versionen
+      - name: Vänta tills miljön kör den versionen
         env:
-          URL: ${{ vars.STAGING_URL }}
+          URL: ${{ inputs.environment == 'production' && vars.PROD_URL || vars.STAGING_URL }}
           SHA: ${{ inputs.sha }}
         run: |
-          : "${URL:?STAGING_URL saknas i miljön staging}"
+          : "${URL:?URL-variabeln saknas i miljön ${{ inputs.environment }}}"
           URL="${URL%/}"
           for i in $(seq 1 30); do
             LIVE=$(curl -fsS "$URL/version.txt" 2>/dev/null || true)
@@ -47,8 +54,8 @@ jobs:
               echo "✅ $URL kör $SHA igen"
               exit 0
             fi
-            echo "Försök $i/30: staging kör ${LIVE:-(inget svar ännu)} – väntar 10 s"
+            echo "Försök $i/30: ${{ inputs.environment }} kör ${LIVE:-(inget svar ännu)} – väntar 10 s"
             sleep 10
           done
-          echo "::error::Staging kör inte $SHA efter 5 minuter"
+          echo "::error::${{ inputs.environment }} kör inte $SHA efter 5 minuter"
           exit 1
