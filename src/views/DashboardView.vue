@@ -31,7 +31,7 @@
       />
       <p class="hint">Källa: din elmätare. Uppdateras varje dygn.</p>
     </div>
-
+    <NorwayNotice />
     <div class="card">
       <h2>Spartips just nu</h2>
       <p>
@@ -51,6 +51,7 @@ import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
 import ConsumptionChart from '../components/ConsumptionChart.vue'
 import { firstName } from '../utils/user.js'
+import NorwayNotice from '../components/NorwayNotice.vue'
 
 const userStore = useUserStore()
 const consumptionStore = useConsumptionStore()
