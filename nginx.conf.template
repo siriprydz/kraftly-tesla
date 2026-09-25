@@ -7,6 +7,23 @@ server {
     try_files $uri $uri/ /index.html;
   }
 
+ # --- Cache-headers -------------------------------------------------------
+  # Vite döper byggda filer efter innehållet: /assets/index-3f9c2e1a.js. Ändras
+  # innehållet byts namnet, så filen kan cachas i ett år utan att någon ser
+  # gammal kod. "immutable" säger åt browsern att inte ens fråga om den ändrats.
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+  }
+
+  # Ingångarna får ALDRIG fastna i cache: det är de som pekar på de hashade filerna.
+  # no-cache = spara gärna, men fråga servern innan du använder kopian (ETag/304).
+  # index.html: annars ser användaren gamla filnamn efter en deploy.
+  # config.js:  annars slår en flagga inte igenom förrän cachen går ut.
+  # version.txt: annars ljuger den för pipelinen och för er själva.
+  location = /index.html { add_header Cache-Control "no-cache"; }
+  location = /config.js  { add_header Cache-Control "no-cache"; }
+  location = /version.txt { add_header Cache-Control "no-cache"; }
+
   location /api/ {
     proxy_pass ${API_URL}/api/;
     proxy_set_header X-Api-Key ${API_KEY};
