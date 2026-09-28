@@ -12,12 +12,16 @@
 
 - Vi har inte fått några issues från det andra teamet
 
-Vad vi har gjort:
+### Vad vi har gjort:
 
-(fylls i korrekt senare)
+- [x] Rollback
+  - Länk till körning:https://github.com/siriprydz/kraftly-tesla/actions/runs/36425587458
+  - Tid från "run workflow" till färdig rollback: 33s
+  - Norgekortet försvann, etersom det var commitat till den senare builden.
+  - Flaggan som är inlagd som en miljövariabel i Render backades inte. En databas hade inte heller återställts av den här rollbacken.
+  - Om vi valt production hade vi behövt ett godkännade i github från någon annan än den som gjorde rollbacken. I vårt fall har vi dock gjort så att samma person som gjorde deployen får godkänna, för att Siri skulle kunna göra det jälv när Elin var borta.
 
-Vad vi har kvar:
+### Vad vi har kvar:
 
-- [] Rollback
 - [] docs/scaling.md med spår 3:s siffror.
 - [] Beslutsdokumentet docs/decisions/feature-flags.md.
