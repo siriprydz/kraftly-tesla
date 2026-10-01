@@ -1,12 +1,22 @@
 import { afterEach, it, expect, vi } from 'vitest'
-import { login, fetchUser, fetchConsumption, fetchInvoices, submitMove, saveUser } from './api'
+import {
+  login,
+  refreshAccessToken,
+  fetchUser,
+  fetchConsumption,
+  fetchInvoices,
+  submitMove,
+  saveUser,
+} from './api'
+import { getAccessToken, setAccessToken } from './token'
 
 afterEach(() => {
   vi.unstubAllGlobals()
+  setAccessToken(null)
 })
 
 it('logs in a user', async () => {
-  const response = { token: 'test-token', name: 'Anna Andersson' }
+  const response = { accessToken: 'test-token', name: 'Anna Andersson' }
 
   vi.stubGlobal(
     'fetch',
@@ -20,7 +30,7 @@ it('logs in a user', async () => {
 
   expect(result).toEqual(response)
   expect(fetch).toHaveBeenCalledWith(
-    '/api/login',
+    '/api/v2/auth/login',
     expect.objectContaining({
       method: 'POST',
       body: JSON.stringify({ email: 'anna@example.com', password: 'secret' }),
@@ -29,6 +39,65 @@ it('logs in a user', async () => {
       }),
     }),
   )
+})
+
+it('restores the access token using the refresh endpoint', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ accessToken: 'refreshed-token' }),
+    }),
+  )
+
+  const refreshed = await refreshAccessToken()
+
+  expect(refreshed).toBe(true)
+  expect(getAccessToken()).toBe('refreshed-token')
+  expect(fetch).toHaveBeenCalledWith(
+    '/api/v2/auth/refresh',
+    expect.objectContaining({ method: 'POST' }),
+  )
+})
+
+it('refreshes and retries a request after 401', async () => {
+  const invoices = [{ id: 'F-1' }]
+  const fetchMock = vi
+    .fn()
+    .mockResolvedValueOnce({ ok: false, status: 401 })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ accessToken: 'new-token' }),
+    })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => invoices,
+    })
+
+  vi.stubGlobal('fetch', fetchMock)
+
+  await expect(fetchInvoices()).resolves.toEqual(invoices)
+
+  expect(fetchMock).toHaveBeenCalledTimes(3)
+  expect(fetchMock.mock.calls[1][0]).toBe('/api/v2/auth/refresh')
+  expect(fetchMock.mock.calls[2][0]).toBe(fetchMock.mock.calls[0][0])
+  expect(getAccessToken()).toBe('new-token')
+})
+
+it('does not retry more than once after 401', async () => {
+  const fetchMock = vi
+    .fn()
+    .mockResolvedValueOnce({ ok: false, status: 401 })
+    .mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ accessToken: 'new-token' }),
+    })
+    .mockResolvedValueOnce({ ok: false, status: 401 })
+
+  vi.stubGlobal('fetch', fetchMock)
+
+  await expect(fetchInvoices()).rejects.toThrow('API error 401')
+  expect(fetchMock).toHaveBeenCalledTimes(3)
 })
 
 it('fetches the user', async () => {
