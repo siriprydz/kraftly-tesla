@@ -25,7 +25,6 @@ const request = async (path, options = {}, retryOn401 = true) => {
     }
   }
   if (!res.ok) {
-    console.log('API error', res.status)
     throw new Error('API error ' + res.status)
   }
   return res.json()
