@@ -15,7 +15,7 @@ afterEach(() => {
   setAccessToken(null)
 })
 
-it('logs in a user', async () => {
+it('logs in a user without Bearer token', async () => {
   const response = { accessToken: 'test-token', name: 'Anna Andersson' }
 
   vi.stubGlobal(
@@ -26,17 +26,17 @@ it('logs in a user', async () => {
     }),
   )
 
-  const result = await login('anna@example.com', 'secret')
+  const result = await login('anna.andersson@example.com', 'secret')
 
   expect(result).toEqual(response)
   expect(fetch).toHaveBeenCalledWith(
     '/api/v2/auth/login',
     expect.objectContaining({
       method: 'POST',
-      body: JSON.stringify({ email: 'anna@example.com', password: 'secret' }),
-      headers: expect.objectContaining({
+      body: JSON.stringify({ email: 'anna.andersson@example.com', password: 'secret' }),
+      headers: {
         'Content-Type': 'application/json',
-      }),
+      },
     }),
   )
 })
@@ -100,7 +100,8 @@ it('does not retry more than once after 401', async () => {
   expect(fetchMock).toHaveBeenCalledTimes(3)
 })
 
-it('fetches the user', async () => {
+it('fetches the user with Bearer token', async () => {
+  setAccessToken('test-token')
   const user = { id: 1, name: 'Anna Andersson' }
 
   vi.stubGlobal(
@@ -114,10 +115,16 @@ it('fetches the user', async () => {
   const result = await fetchUser()
 
   expect(result).toEqual(user)
-  expect(fetch).toHaveBeenCalledWith('/api/user', expect.any(Object))
+  expect(fetch).toHaveBeenCalledWith('/api/v2/user', {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer test-token',
+    },
+  })
 })
 
 it('fetches consumption', async () => {
+  setAccessToken('test-token')
   const consumption = { unit: 'kWh', values: [210, 195] }
 
   vi.stubGlobal(
@@ -131,10 +138,16 @@ it('fetches consumption', async () => {
   const result = await fetchConsumption()
 
   expect(result).toEqual(consumption)
-  expect(fetch).toHaveBeenCalledWith('/api/consumption', expect.any(Object))
+  expect(fetch).toHaveBeenCalledWith('/api/v2/consumption', {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer test-token',
+    },
+  })
 })
 
 it('fetches invoices', async () => {
+  setAccessToken('test-token')
   const invoices = [{ id: 'F-2026-06', status: 'Obetald' }]
 
   vi.stubGlobal(
@@ -148,7 +161,12 @@ it('fetches invoices', async () => {
   const result = await fetchInvoices()
 
   expect(result).toEqual(invoices)
-  expect(fetch).toHaveBeenCalledWith('/api/invoices', expect.any(Object))
+  expect(fetch).toHaveBeenCalledWith('/api/v2/invoices', {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer test-token',
+    },
+  })
 })
 
 it('throws an error when the API request fails', async () => {
@@ -163,7 +181,23 @@ it('throws an error when the API request fails', async () => {
   await expect(fetchInvoices()).rejects.toThrow('API error 500')
 })
 
+it('throws 401 when fetching invoices without token', async () => {
+  vi.stubGlobal(
+    'fetch',
+    vi.fn().mockResolvedValue({
+      ok: false,
+      status: 401,
+    }),
+  )
+
+  await expect(fetchInvoices()).rejects.toThrow('API error 401')
+  expect(fetch).toHaveBeenCalledWith('/api/v2/invoices', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+})
+
 it('submits a move request', async () => {
+  setAccessToken('test-token')
   const moveData = {
     address: 'Solvägen 12',
     zip: '802 67',
@@ -185,15 +219,20 @@ it('submits a move request', async () => {
 
   expect(result).toEqual(response)
   expect(fetch).toHaveBeenCalledWith(
-    '/api/move',
+    '/api/v2/move',
     expect.objectContaining({
       method: 'POST',
       body: JSON.stringify(moveData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer test-token',
+      },
     }),
   )
 })
 
 it('saves the user', async () => {
+  setAccessToken('test-token')
   const userData = {
     name: 'Anna Andersson',
     email: 'anna.andersson@example.com',
@@ -213,10 +252,14 @@ it('saves the user', async () => {
 
   expect(result).toEqual(response)
   expect(fetch).toHaveBeenCalledWith(
-    '/api/user',
+    '/api/v2/user',
     expect.objectContaining({
       method: 'PUT',
       body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer test-token',
+      },
     }),
   )
 })

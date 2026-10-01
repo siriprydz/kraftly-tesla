@@ -18,6 +18,7 @@ const router = createRouter({
   ],
 })
 
+// UX-guard: send logged out users to /login. The real guard is in the API layer (401 without valid token).
 router.beforeEach((to) => {
   if (to.path !== '/login' && !getAccessToken()) {
     return '/login'
