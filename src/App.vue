@@ -21,12 +21,13 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { setAccessToken } from './services/token'
 
 const router = useRouter()
 const appEnv = window.__KRAFTLY__?.env ?? 'lokal'
 
 const logout = () => {
-  localStorage.removeItem('kraftly_logged_in')
+  setAccessToken(null)
   router.push('/login')
 }
 </script>

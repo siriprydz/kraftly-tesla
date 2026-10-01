@@ -1,6 +1,9 @@
 describe('fakturor', () => {
   beforeEach(() => {
-    cy.intercept('POST', '**/api/login', { token: 'test', name: 'Test Testsson' })
+    cy.intercept('POST', '**/api/v2/auth/login', {
+      accessToken: 'test',
+      name: 'Test Testsson',
+    })
     cy.intercept('GET', '**/api/user', { name: 'Test Testsson', contract: 'Rörligt pris' })
     cy.intercept('GET', '**/api/consumption', {
       unit: 'kWh',
