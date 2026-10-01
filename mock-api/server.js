@@ -99,6 +99,33 @@ app.post('/api/v2/auth/refresh', (req, res) => {
   res.json({ accessToken: 'mock-access-token' })
 })
 
+const requireBearer = (req, res, next) => {
+  const auth = req.get('Authorization')
+  if (!auth || auth !== 'Bearer mock-access-token') {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+  next()
+}
+
+app.get('/api/v2/user', requireBearer, (req, res) => res.json(user))
+
+app.get('/api/v2/consumption', requireBearer, (req, res) => {
+  // quick fix: dashboard felt too fast in the demo, added a delay so the spinner shows /J
+  setTimeout(() => res.json(consumption), 600)
+})
+
+app.get('/api/v2/invoices', requireBearer, (req, res) => res.json(invoices))
+
+app.post('/api/v2/move', requireBearer, (req, res) => {
+  console.log('Move request:', req.body)
+  res.json({ ok: true, ref: 'FLYTT-' + Math.floor(Math.random() * 90000 + 10000) })
+})
+
+app.put('/api/v2/user', requireBearer, (req, res) => {
+  Object.assign(user, req.body)
+  res.json(user)
+})
+
 app.get('/api/user', (req, res) => res.json(user))
 
 app.get('/api/consumption', (req, res) => {

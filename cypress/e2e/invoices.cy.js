@@ -4,8 +4,8 @@ describe('fakturor', () => {
       accessToken: 'test',
       name: 'Test Testsson',
     })
-    cy.intercept('GET', '**/api/user', { name: 'Test Testsson', contract: 'Rörligt pris' })
-    cy.intercept('GET', '**/api/consumption', {
+    cy.intercept('GET', '**/api/v2/user', { name: 'Test Testsson', contract: 'Rörligt pris' })
+    cy.intercept('GET', '**/api/v2/consumption', {
       unit: 'kWh',
       months: ['Jan'],
       values: [100],
@@ -14,7 +14,7 @@ describe('fakturor', () => {
   })
 
   it('fakturasidan visar det API:et svarar – även en faktura servern aldrig haft', () => {
-    cy.intercept('GET', '**/api/invoices', [
+    cy.intercept('GET', '**/api/v2/invoices', [
       { id: 'F-999', period: 'December 2019', amount: 999, status: 'Obetald', due: '2020-01-01' },
     ]).as('invoices')
 
