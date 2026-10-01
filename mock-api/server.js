@@ -77,9 +77,26 @@ const consumption = {
   pricePerKwh: 1.42,
 }
 
-// anyone gets in, we'll add real auth later(TM)
-app.post('/api/login', (req, res) => {
-  res.json({ token: 'fake-token-123', name: user.name })
+app.post('/api/v2/auth/login', (req, res) => {
+  res.cookie('kraftly_refresh', 'mock-refresh-token', {
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/api/v2/auth',
+  })
+  res.json({ accessToken: 'mock-access-token', name: user.name })
+})
+
+app.post('/api/v2/auth/refresh', (req, res) => {
+  const cookies = req.get('cookie') || ''
+  const hasRefreshCookie = cookies
+    .split(';')
+    .some((cookie) => cookie.trim() === 'kraftly_refresh=mock-refresh-token')
+
+  if (!hasRefreshCookie) {
+    return res.status(401).json({ error: 'Unauthorized' })
+  }
+
+  res.json({ accessToken: 'mock-access-token' })
 })
 
 app.get('/api/user', (req, res) => res.json(user))
