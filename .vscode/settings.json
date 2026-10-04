@@ -1,5 +1,4 @@
 {
-  "json.schemaDownload.enable": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
