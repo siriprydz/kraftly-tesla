@@ -27,14 +27,14 @@ Efter merge till main bygger CI en Docker-image, pushar till GHCR, triggar Rende
 
 ## Konfiguration – var bor vad?
 
-| Variabel             | Hemlig?   | Lokalt                           | Staging                                                           | Används av                                              |
-| -------------------- | --------- | -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
-| `API_KEY`            | Ja        | `.env`                           | Render → Environment                                              | Vite-proxy / nginx (skickas som `X-Api-Key` till API:t) |
-| `API_URL`            | Nej       | `.env` (`http://localhost:4000`) | Render → Environment (`https://kraftly-api-staging.onrender.com`) | nginx (proxar `/api/`)                                  |
-| `PORT`               | Nej       | `80` i compose                   | Render sätter själv                                               | nginx (`listen`)                                        |
-| `RENDER_DEPLOY_HOOK` | Ja        | —                                | GitHub → Environment `staging` → Secrets                          | `deploy-staging`-jobbet (triggar Render)                |
-| `STAGING_URL`        | Nej       | —                                | GitHub → Environment `staging` → Variables                        | deploy + verifiering (`version.txt`, röktest)           |
-| `GITHUB_TOKEN`       | Ja (auto) | —                                | GitHub Actions (inbyggd)                                          | push till GHCR                                          |
+| Variabel             | Hemlig?   | Lokalt                                                        | Staging                                                           | Används av                                              |
+| -------------------- | --------- | ------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
+| `API_KEY`            | Ja        | `.env`                                                        | Render → Environment                                              | Vite-proxy / nginx (skickas som `X-Api-Key` till API:t) |
+| `API_URL`            | Nej       | `.env` (tom = mock; lokal adress i Vite, `api:4000` i Docker) | Render → Environment (`https://kraftly-api-staging.onrender.com`) | Vite-proxy / nginx (proxar `/api/`)                     |
+| `PORT`               | Nej       | `80` i compose                                                | Render sätter själv                                               | nginx (`listen`)                                        |
+| `RENDER_DEPLOY_HOOK` | Ja        | —                                                             | GitHub → Environment `staging` → Secrets                          | `deploy-staging`-jobbet (triggar Render)                |
+| `STAGING_URL`        | Nej       | —                                                             | GitHub → Environment `staging` → Variables                        | deploy + verifiering (`version.txt`, röktest)           |
+| `GITHUB_TOKEN`       | Ja (auto) | —                                                             | GitHub Actions (inbyggd)                                          | push till GHCR                                          |
 
 ## API-nyckeln
 

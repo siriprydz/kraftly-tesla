@@ -10,6 +10,19 @@ docker compose up --build
 
 Öppna `http://localhost:8080`. Logga in med valfri e-post och lösenord — mock-API:t accepterar alla.
 
+## Använd det riktiga API:t
+
+Ange API-adress och nyckel i `.env`:
+
+```env
+API_KEY=<riktig-api-nyckel>
+API_URL=https://kraftly-api-staging.onrender.com
+```
+
+Nginx proxar API-anropen och lägger till nyckeln. Samma `API_URL` används i
+Docker och vid `npm run dev`; lämna den tom för mock-API:t. Det riktiga API:t
+måste stödja appens autentiseringsflöde.
+
 Stoppa:
 
 ```bash

@@ -8,7 +8,7 @@ services:
       - '8080:80'
     environment:
       PORT: 80
-      API_URL: http://api:4000
+      API_URL: ${API_URL:-http://api:4000}
       API_KEY: ${API_KEY:?API_KEY saknas - kör cp .env.example .env}
     depends_on:
       - api
