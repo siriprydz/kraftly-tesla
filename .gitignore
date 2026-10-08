@@ -5,3 +5,5 @@ dist
 # Lokala hemligheter – committas aldrig
 .env
 .env.local
+
+.lighthouseci/
