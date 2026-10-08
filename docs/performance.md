@@ -15,16 +15,44 @@ iPhone 12 Pro, Fast 4G, cache av, median av tre. /login: Lighthouse CI i pipelin
 
 ## Optimeringarna
 
-### 1. <Vad>
+### 1. Bilden och det som hoppar
 
-<Vad var problemet, vad gjorde vi, länk till PR:en.>
+Problemet var att bilden laddade långsamt pga sin stora vikt. Det kombinerat med ospecificerad höjd och bredd, gjorde att sidan hoppade till när sidan laddades in. Även diagrammet hoppade till när /api/v2/consumption hade hämtats klart. Vi löste detta genom att:
 
-|                   | Före     | Efter |
-| ----------------- | -------- | ----- |
-| LCP               | 7,57s    | …     |
-| CLS               | 0,02     | …     |
-| JavaScript (gzip) | 142,13kb | …     |
+- Minska bildens storlek och vikt
+- Ändra bildens format till webp
+- Specificera höjd och bredd för bild
+- Lägga till fetchpriority="high" på bild
+- Specificera aspect ratio för diagram
+
+Länk till PR: https://github.com/siriprydz/kraftly-tesla/pull/63
+
+(Tabellerna nedan visas i den ordning optimeringarna implementerades. Resultaten i varje tabell påverkas alltså av ändringarna som beskrivs ovanför den.)
+
+| Bildens tyngd     | Före     | Efter     |
+| ----------------- | -------- | --------- |
+| LCP               | 7,57s    | 0.75 s    |
+| CLS               | 0,02     | 0.06      |
+| JavaScript (gzip) | 142,13kb | 142.13 kB |
+
+| Specificerad höjd, bredd och fetchpriority="high" | Före     | Efter     |
+| ------------------------------------------------- | -------- | --------- |
+| LCP                                               | 7,57s    | 0.92s     |
+| CLS                                               | 0,02     | 0.00      |
+| JavaScript (gzip)                                 | 142,13kb | 142.13 kB |
+
+| css-regel height: auto; | Före     | Efter     |
+| ----------------------- | -------- | --------- |
+| LCP                     | 7,57s    | 0.93s     |
+| CLS                     | 0,02     | 0.00      |
+| JavaScript (gzip)       | 142,13kb | 142.13 kB |
+
+| Diagrammets plats | Före     | Efter     |
+| ----------------- | -------- | --------- |
+| LCP               | 7,57s    | 0.93s     |
+| CLS               | 0,02     | 0.00      |
+| JavaScript (gzip) | 142,13kb | 142.13 kB |
 
 ## Flaskhalsen vi inte äger
 
-<API-fördröjningen: var den syns, vad vi gjorde åt vår del.>
+Det tar drygt en halv sekund för för hämtningen mot Kraftlys test-API, och den tiden kan vi inte påverka. Det vi gjorde var att se till att diagrammet har en bestämd aspect ratio. På så sätt hoppar inte sidan när datan laddas in.
