@@ -46,11 +46,12 @@
 <script setup>
 // Dashboard. Got a bit big, clean up some day /M
 import { debounce } from '../utils/debounce.js'
-import { computed, onMounted, onBeforeUnmount } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onBeforeUnmount } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
-import ConsumptionChart from '../components/ConsumptionChart.vue'
 import { firstName } from '../utils/user.js'
+
+const ConsumptionChart = defineAsyncComponent(() => import('../components/ConsumptionChart.vue'))
 import NorwayNotice from '../components/NorwayNotice.vue'
 
 const userStore = useUserStore()

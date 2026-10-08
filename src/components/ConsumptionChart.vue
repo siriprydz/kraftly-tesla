@@ -3,8 +3,10 @@
 </template>
 
 <script setup>
-import Chart from 'chart.js/auto'
+import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip } from 'chart.js'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip)
 
 const props = defineProps({ months: Array, values: Array })
 const canvas = ref(null)
