@@ -14,7 +14,14 @@
       </div>
     </header>
     <main class="container">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <Suspense>
+          <component :is="Component" />
+          <template #fallback>
+            <p class="route-loading">Laddar...</p>
+          </template>
+        </Suspense>
+      </RouterView>
     </main>
   </div>
 </template>
@@ -71,5 +78,12 @@ const logout = () => {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+.route-loading {
+  color: #b8c0cf;
+  font-size: 14px;
+  padding: 40px 0;
+  text-align: center;
 }
 </style>

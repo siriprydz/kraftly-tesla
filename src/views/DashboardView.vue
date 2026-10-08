@@ -54,12 +54,13 @@
 
 <script setup>
 // Dashboard. Got a bit big, clean up some day /M
-import _ from 'lodash'
-import { computed, onMounted, onBeforeUnmount } from 'vue'
+import { debounce } from '../utils/debounce.js'
+import { computed, defineAsyncComponent, onMounted, onBeforeUnmount } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
-import ConsumptionChart from '../components/ConsumptionChart.vue'
 import { firstName } from '../utils/user.js'
+
+const ConsumptionChart = defineAsyncComponent(() => import('../components/ConsumptionChart.vue'))
 import NorwayNotice from '../components/NorwayNotice.vue'
 
 const userStore = useUserStore()
@@ -75,7 +76,7 @@ const currentPrice = computed(() =>
 )
 
 // debounce on resize, chart.js redraws itself but we log a bit /J
-const onResize = _.debounce(() => console.log('resize', window.innerWidth), 300)
+const onResize = debounce(() => console.log('resize', window.innerWidth), 300)
 
 onMounted(() => {
   userStore.load()
