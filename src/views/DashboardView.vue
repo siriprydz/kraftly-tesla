@@ -1,6 +1,13 @@
 <template>
   <div>
-    <img src="../assets/hero.png" class="hero" />
+    <img
+      src="../assets/hero.webp"
+      class="hero"
+      width="1200"
+      height="600"
+      alt=""
+      fetchpriority="high"
+    />
     <h1 v-if="userStore.user">Hej {{ firstName(userStore.user.name) }}!</h1>
     <h1 v-else>Hej!</h1>
 
@@ -86,6 +93,7 @@ const showTips = () => {
 <style scoped>
 .hero {
   width: 100%;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 18px;
 }
