@@ -60,10 +60,26 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+  lighthouse:
+    name: Prestandabudget (Lighthouse)
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - run: npx --yes @lhci/cli@0.15.x autorun
   publish:
     name: Image → GHCR
     runs-on: ubuntu-latest
-    needs: [quality, e2e] # bara kod som klarat testerna blir en image
+    needs: [quality, e2e, lighthouse] # bara kod som klarat testerna blir en image
     permissions:
       contents: read
       packages: write
