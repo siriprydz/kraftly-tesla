@@ -19,10 +19,11 @@ iPhone 12 Pro, Fast 4G, cache av, median av tre. /login: Lighthouse CI i pipelin
 
 <Vad var problemet, vad gjorde vi, länk till PR:en.>
 
-|     | Före  | Efter |
-| --- | ----- | ----- |
-| LCP | 7,57s | …     |
-| CLS | 0,02  | …     |
+|                   | Före     | Efter |
+| ----------------- | -------- | ----- |
+| LCP               | 7,57s    | …     |
+| CLS               | 0,02     | …     |
+| JavaScript (gzip) | 142,13kb | …     |
 
 ## Flaskhalsen vi inte äger
 
