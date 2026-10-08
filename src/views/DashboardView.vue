@@ -1,6 +1,13 @@
 <template>
   <div>
-    <img src="../assets/hero.png" class="hero" />
+    <img
+      src="../assets/hero.webp"
+      class="hero"
+      width="1200"
+      height="600"
+      alt=""
+      fetchpriority="high"
+    />
     <h1 v-if="userStore.user">Hej {{ firstName(userStore.user.name) }}!</h1>
     <h1 v-else>Hej!</h1>
 
@@ -23,12 +30,14 @@
 
     <div class="card">
       <h2>Din elförbrukning – senaste 12 månaderna</h2>
-      <p v-if="consumptionStore.loading">Laddar…</p>
-      <ConsumptionChart
-        v-else-if="consumptionStore.data"
-        :months="consumptionStore.data.months"
-        :values="consumptionStore.data.values"
-      />
+      <div class="chart-box">
+        <p v-if="consumptionStore.loading">Laddar…</p>
+        <ConsumptionChart
+          v-else-if="consumptionStore.data"
+          :months="consumptionStore.data.months"
+          :values="consumptionStore.data.values"
+        />
+      </div>
       <p class="hint">Källa: din elmätare. Uppdateras varje dygn.</p>
     </div>
     <NorwayNotice />
@@ -84,8 +93,13 @@ const showTips = () => {
 </script>
 
 <style scoped>
+.chart-box {
+  aspect-ratio: 2 / 1;
+}
+
 .hero {
   width: 100%;
+  height: auto;
   border-radius: 10px;
   margin-bottom: 18px;
 }
