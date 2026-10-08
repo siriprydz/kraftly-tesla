@@ -45,7 +45,7 @@
 
 <script setup>
 // Dashboard. Got a bit big, clean up some day /M
-import _ from 'lodash'
+import { debounce } from '../utils/debounce.js'
 import { computed, onMounted, onBeforeUnmount } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
@@ -66,7 +66,7 @@ const currentPrice = computed(() =>
 )
 
 // debounce on resize, chart.js redraws itself but we log a bit /J
-const onResize = _.debounce(() => console.log('resize', window.innerWidth), 300)
+const onResize = debounce(() => console.log('resize', window.innerWidth), 300)
 
 onMounted(() => {
   userStore.load()
