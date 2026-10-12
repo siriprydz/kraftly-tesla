@@ -1,12 +1,20 @@
 import { render, screen } from '@testing-library/vue'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import Chart from 'chart.js/auto'
+import { Chart } from 'chart.js'
 import ConsumptionChart from './ConsumptionChart.vue'
 
-vi.mock('chart.js/auto', () => ({
-  default: vi.fn(function Chart() {
-    this.destroy = vi.fn()
-  }),
+vi.mock('chart.js', () => ({
+  Chart: Object.assign(
+    vi.fn(function Chart() {
+      this.destroy = vi.fn()
+    }),
+    { register: vi.fn() },
+  ),
+  BarController: {},
+  BarElement: {},
+  CategoryScale: {},
+  LinearScale: {},
+  Tooltip: {},
 }))
 
 describe('ConsumptionChart tests', () => {

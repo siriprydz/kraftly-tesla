@@ -1,20 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// TODO: look into "lazy loading" at some point, ran out of time /M
-import LoginView from '../views/LoginView.vue'
-import DashboardView from '../views/DashboardView.vue'
-import InvoicesView from '../views/InvoicesView.vue'
-import MoveFormView from '../views/MoveFormView.vue'
-import ProfileView from '../views/ProfileView.vue'
 import { getAccessToken } from '../services/token'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/login', component: LoginView },
-    { path: '/', component: DashboardView },
-    { path: '/fakturor', component: InvoicesView },
-    { path: '/flytt', component: MoveFormView },
-    { path: '/profil', component: ProfileView },
+    { path: '/login', component: () => import('../views/LoginView.vue') },
+    { path: '/', component: () => import('../views/DashboardView.vue') },
+    { path: '/fakturor', component: () => import('../views/InvoicesView.vue') },
+    { path: '/flytt', component: () => import('../views/MoveFormView.vue') },
+    { path: '/profil', component: () => import('../views/ProfileView.vue') },
   ],
 })
 
