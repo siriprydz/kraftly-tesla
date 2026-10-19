@@ -47,7 +47,7 @@
         Elpriset är som högst mellan 07–09 och 17–20. Flytta tvätt och diskmaskin till natten så kan
         du sänka din kostnad med upp till 15 %.
       </p>
-      <KButton class="btn" style="margin-top: 12px" @click="showTips">Fler spartips</KButton>
+      <KButton class="tips-button" @click="showTips">Fler spartips</KButton>
     </div>
   </div>
 </template>
@@ -97,6 +97,10 @@ const showTips = () => {
 <style scoped>
 .chart-box {
   aspect-ratio: 2 / 1;
+}
+
+.tips-button {
+  margin-top: 12px;
 }
 
 .hero {
