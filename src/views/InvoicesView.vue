@@ -16,8 +16,14 @@
           <td>{{ invoice.period }}</td>
           <td>{{ formatAmount(invoice.amount) }} kr</td>
           <td>{{ invoice.due }}</td>
-          <td><StatusChip :invoice="invoice" /></td>
-          <td><div class="download" @click="downloadInvoice(invoice)">Ladda ner</div></td>
+          <td>
+            <StatusChip :invoice="invoice" />
+          </td>
+          <td>
+            <KButton class="download" variant="text" @click="downloadInvoice(invoice)"
+              >Ladda ner</KButton
+            >
+          </td>
         </tr>
       </table>
     </div>
@@ -29,6 +35,7 @@ import { ref, onMounted } from 'vue'
 import StatusChip from '../components/StatusChip.vue'
 import { fetchInvoices } from '../services/api'
 import { formatAmount } from '../utils/format'
+import KButton from '../components/KButton.vue'
 
 const invoices = ref([])
 
