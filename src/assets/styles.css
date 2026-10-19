@@ -39,27 +39,6 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* button styles, kept adding more over time */
-.btn {
-  display: inline-block;
-  background: #2f54eb;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 18px;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.button-secondary {
-  background: #eef1ff;
-  color: #2f54eb;
-  border: 1px solid #2f54eb;
-  border-radius: 4px;
-  padding: 9px 16px;
-  cursor: pointer;
-}
-
 input,
 select {
   width: 100%;

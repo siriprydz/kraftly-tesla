@@ -34,7 +34,7 @@
       </select>
       <p v-if="errors.contract" class="error">{{ errors.contract }}</p>
 
-      <BaseButton @click="submit">Skicka flyttanmälan</BaseButton>
+      <KButton type="submit" @click="submit">Skicka flyttanmälan</KButton>
       <p class="hint" style="margin-top: 8px">Anmälan måste göras senast 14 dagar före flytt</p>
       <p v-if="reference" style="color: #12b76a; margin-top: 10px">
         Tack! Referensnummer: {{ reference }}
@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import BaseButton from '../components/BaseButton.vue'
+import KButton from '../components/KButton.vue'
 import { submitMove } from '../services/api'
 import { validateMove } from '../utils/validateMove.js'
 
