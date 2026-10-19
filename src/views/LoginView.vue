@@ -1,10 +1,17 @@
 <template>
   <div class="login-wrap">
     <div class="card login-card">
-      <img src="../assets/logo-dark.svg" class="login-logo" />
+      <img src="../assets/logo-dark.svg" class="login-logo" alt="Kraftly" />
       <h1>Logga in på Mina sidor</h1>
-      <input v-model="email" type="text" placeholder="E-postadress" />
-      <input v-model="password" type="password" placeholder="Lösenord" />
+      <label for="login-email">E-postadress</label>
+      <input id="login-email" v-model="email" type="email" autocomplete="username" />
+      <label for="login-password">Lösenord</label>
+      <input
+        id="login-password"
+        v-model="password"
+        type="password"
+        autocomplete="current-password"
+      />
       <KButton
         type="submit"
         block
@@ -49,6 +56,13 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
+label {
+  display: block;
+  font-size: 13px;
+  color: #4a5468;
+  margin-bottom: 4px;
+}
+
 .login-wrap {
   display: flex;
   justify-content: center;
