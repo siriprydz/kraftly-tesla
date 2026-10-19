@@ -16,11 +16,7 @@
           <td>{{ invoice.period }}</td>
           <td>{{ formatAmount(invoice.amount) }} kr</td>
           <td>{{ invoice.due }}</td>
-          <td>
-            <span :class="['status-chip', getStatusClass(invoice)]">
-              {{ getStatus(invoice) }}
-            </span>
-          </td>
+          <td><StatusChip :invoice="invoice" /></td>
           <td><div class="download" @click="downloadInvoice(invoice)">Ladda ner</div></td>
         </tr>
       </table>
@@ -30,21 +26,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import StatusChip from '../components/StatusChip.vue'
 import { fetchInvoices } from '../services/api'
 import { formatAmount } from '../utils/format'
-import { invoiceStatus } from '../utils/invoice'
 
 const invoices = ref([])
-
-const getStatus = (invoice) => invoiceStatus(invoice, new Date())
-
-const getStatusClass = (invoice) => {
-  const status = getStatus(invoice)
-
-  if (status === 'Betald') return 'status-betald'
-  if (status === 'Förfallen') return 'status-forfallen'
-  return 'status-obetald'
-}
 
 onMounted(async () => {
   invoices.value = await fetchInvoices()
