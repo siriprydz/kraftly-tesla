@@ -55,6 +55,15 @@ describe('InvoicesView', () => {
     expect(screen.getByText('F-2026-08')).toBeInTheDocument()
   })
 
+  it('marks the table headers as column headers', async () => {
+    render(InvoicesView)
+
+    expect(await screen.findByRole('columnheader', { name: 'Belopp' })).toHaveAttribute(
+      'scope',
+      'col',
+    )
+  })
+
   it('renders the correct invoice status text', async () => {
     render(InvoicesView)
 
@@ -72,9 +81,11 @@ describe('InvoicesView', () => {
 
     render(InvoicesView)
 
-    const downloadButton = await screen.findAllByText('Ladda ner')
+    const downloadButton = await screen.findByRole('button', {
+      name: 'Ladda ner faktura F-2026-06',
+    })
 
-    await fireEvent.click(downloadButton[0])
+    await fireEvent.click(downloadButton)
 
     expect(alertSpy).toHaveBeenCalledWith('Nedladdning kommer snart')
     alertSpy.mockRestore()
