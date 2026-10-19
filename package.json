@@ -14,7 +14,10 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:a11y": "vitest run a11y"
   },
   "lint-staged": {
     "*.{js,vue}": [
@@ -35,6 +38,9 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.1",
+    "@storybook/addon-a11y": "^10.6.1",
+    "@storybook/addon-docs": "^10.6.1",
+    "@storybook/vue3-vite": "^10.6.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/user-event": "^14.6.6",
     "@testing-library/vue": "^8.1.0",
@@ -45,10 +51,12 @@
     "eslint-plugin-vue": "^10.10.0",
     "globals": "^17.11.0",
     "husky": "^9.1.7",
+    "jest-axe": "^11.0.0",
     "jsdom": "^29.1.1",
     "lint-staged": "^17.4.1",
     "prettier": "^3.9.6",
     "start-server-and-test": "^3.0.12",
+    "storybook": "^10.6.1",
     "vite": "^6.0.7",
     "vitest": "^4.1.11"
   }

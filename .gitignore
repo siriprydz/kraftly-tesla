@@ -7,3 +7,6 @@ dist
 .env.local
 
 .lighthouseci/
+
+storybook-static/
+*storybook.log
