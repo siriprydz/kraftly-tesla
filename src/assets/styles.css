@@ -4,10 +4,13 @@
   margin: 0;
   padding: 0;
 }
-
-/* the focus ring looked cluttered in the demo, removed it */
-*:focus {
-  outline: none;
+/* Fokus syns vid Tab, inte vid musklick */
+:focus-visible {
+  outline: 3px solid #2f54eb;
+  outline-offset: 2px;
+}
+.topbar :focus-visible {
+  outline-color: #fff;
 }
 
 body {
