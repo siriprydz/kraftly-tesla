@@ -36,7 +36,7 @@
 
       <KButton type="submit" @click="submit">Skicka flyttanmälan</KButton>
       <p class="hint" style="margin-top: 8px">Anmälan måste göras senast 14 dagar före flytt</p>
-      <p v-if="reference" style="color: #12b76a; margin-top: 10px">
+      <p v-if="reference" style="color: #067647; margin-top: 10px">
         Tack! Referensnummer: {{ reference }}
       </p>
     </div>

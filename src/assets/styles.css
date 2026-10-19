@@ -54,7 +54,7 @@ select {
 }
 
 .hint {
-  color: #b8c0cf;
+  color: #5c6679;
   font-size: 12px;
 }
 
@@ -77,7 +77,7 @@ td {
 }
 .status-obetald {
   background: #fff1f0;
-  color: #e35d6a;
+  color: #b42318;
 }
 .status-forfallen {
   background: #ffe6e6;
@@ -85,5 +85,5 @@ td {
 }
 .status-betald {
   background: #ecfdf3;
-  color: #12b76a;
+  color: #067647;
 }
