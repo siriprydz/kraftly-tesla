@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="card login-card">
-      <img src="../assets/logo-dark.svg" class="login-logo" />
+      <img src="../assets/logo-dark.svg" class="login-logo" alt="Kraftly" />
       <h1>Logga in på Mina sidor</h1>
       <label for="login-email">E-postadress</label>
       <input id="login-email" v-model="email" type="email" autocomplete="username" />
