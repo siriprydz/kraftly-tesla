@@ -15,5 +15,5 @@ export const Obetald = {
 }
 
 export const Forfallen = {
-  args: { invoice: { id: 'F-2026-03', status: 'Förfallen', due: '2026-03-31' } },
+  args: { invoice: { id: 'F-2026-03', status: 'Obetald', due: '2026-03-31' } },
 }
