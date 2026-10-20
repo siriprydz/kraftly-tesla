@@ -111,7 +111,7 @@ etag: W/"6ab62dd3-48"
     exit: 1
     ```
 
-- [ ] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, <html lang="sv">. Även alt-texter och fakturatabellens scope. <label for> + id räcker – KField är inte ett krav i M8
+- [x] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, <html lang="sv">. Även alt-texter och fakturatabellens scope. <label for> + id räcker – KField är inte ett krav i M8
 - [x] Storybook lokalt med stories för KButton och de gemensamma komponenter ni ändrar i M8: npm run storybook startar, npm run build-storybook lyckas, och Accessibility-fliken visar Violations 0 på varje story
   - **Bevis:** sista raden från `npm run build-storybook`.
 
@@ -123,8 +123,7 @@ etag: W/"6ab62dd3-48"
     - `StatusChip`: Betald, Obetald, Förfallen
     - `KButton`: Primär, Sekundär, Text, Inaktiverad
 
-- [ ] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); npm run test:a11y och npm run test:run gröna. Klistra in sista raderna ur körningen
-- [x] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); `npm run test:a11y` och `npm run test:run` gröna.
+- [x] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); `npm run test:a11y` och `npm run test:run` gröna. Klistra in sista raderna ur körningen.
   - **Bevis:**
 
     ```text
@@ -142,4 +141,4 @@ etag: W/"6ab62dd3-48"
       Start at  10:40:26
       Duration  2.43s (transform 824ms, setup 3.02s, import 2.94s, tests 1.52s, environment 12.57s)
     ```
-- [ ] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
+- [x] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
