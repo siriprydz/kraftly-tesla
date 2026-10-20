@@ -64,4 +64,5 @@ Nej. "80 % coverage" garanterar bara att så många kodrader exekveras — inte 
 | ------------------ | ------------------- |
 | `npm test`         | Vitest i watch-läge |
 | `npm run test:run` | Vitest en gång (CI) |
-| `npm run cy:open`  | Cypress interaktivt |
+| `npm run e2e:cy`   | Kör alla e2e        |
+| `npx cypress open` | Öppna cypress GUI   |

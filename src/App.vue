@@ -3,13 +3,13 @@
     <div v-if="appEnv !== 'production'" class="env-banner">{{ appEnv.toUpperCase() }}</div>
     <header v-if="$route.path !== '/login'" class="topbar">
       <div class="topbar-inner container">
-        <img src="./assets/logo.svg" class="logo" />
+        <img src="./assets/logo.svg" class="logo" alt="Kraftly" />
         <nav>
           <RouterLink to="/">Översikt</RouterLink>
           <RouterLink to="/fakturor">Fakturor</RouterLink>
           <RouterLink to="/flytt">Flyttanmälan</RouterLink>
           <RouterLink to="/profil">Mina uppgifter</RouterLink>
-          <span class="logout" @click="logout">Logga ut</span>
+          <KButton class="logout" variant="text" @click="logout">Logga ut</KButton>
         </nav>
       </div>
     </header>
@@ -29,6 +29,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { setAccessToken } from './services/token'
+import KButton from './components/KButton.vue'
 
 const router = useRouter()
 const appEnv = window.__KRAFTLY__?.env ?? 'lokal'
@@ -57,12 +58,16 @@ const logout = () => {
 }
 
 .topbar nav a,
-.logout {
+.topbar nav .logout {
   color: #c2cbe4;
   text-decoration: none;
   margin-left: 22px;
   font-size: 14.5px;
   cursor: pointer;
+}
+
+.topbar nav .logout {
+  padding: 0;
 }
 
 .topbar nav a.router-link-active {

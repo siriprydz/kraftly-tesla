@@ -47,7 +47,7 @@
         Elpriset är som högst mellan 07–09 och 17–20. Flytta tvätt och diskmaskin till natten så kan
         du sänka din kostnad med upp till 15 %.
       </p>
-      <div class="btn" style="margin-top: 12px" @click="showTips">Fler spartips</div>
+      <KButton class="tips-button" @click="showTips">Fler spartips</KButton>
     </div>
   </div>
 </template>
@@ -59,6 +59,7 @@ import { computed, defineAsyncComponent, onMounted, onBeforeUnmount } from 'vue'
 import { useUserStore } from '../stores/user'
 import { useConsumptionStore } from '../stores/consumption'
 import { firstName } from '../utils/user.js'
+import KButton from '../components/KButton.vue'
 
 const ConsumptionChart = defineAsyncComponent(() => import('../components/ConsumptionChart.vue'))
 import NorwayNotice from '../components/NorwayNotice.vue'
@@ -98,6 +99,10 @@ const showTips = () => {
   aspect-ratio: 2 / 1;
 }
 
+.tips-button {
+  margin-top: 12px;
+}
+
 .hero {
   width: 100%;
   height: auto;
@@ -113,7 +118,7 @@ const showTips = () => {
 
 .stat-label {
   font-size: 13px;
-  color: #7c8698;
+  color: #5c6679;
   margin-bottom: 6px;
 }
 
