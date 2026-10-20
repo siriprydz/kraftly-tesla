@@ -124,4 +124,22 @@ etag: W/"6ab62dd3-48"
     - `KButton`: Primär, Sekundär, Text, Inaktiverad
 
 - [ ] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); npm run test:a11y och npm run test:run gröna. Klistra in sista raderna ur körningen
+- [x] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); `npm run test:a11y` och `npm run test:run` gröna.
+  - **Bevis:**
+
+    ```text
+    npm run test:a11y
+
+    Test Files  3 passed (3)
+         Tests  8 passed (8)
+      Start at  10:39:55
+      Duration  1.12s (transform 141ms, setup 433ms, import 577ms, tests 291ms, environment 1.73s)
+
+    npm run test:run
+
+    Test Files  16 passed (16)
+         Tests  77 passed (77)
+      Start at  10:40:26
+      Duration  2.43s (transform 824ms, setup 3.02s, import 2.94s, tests 1.52s, environment 12.57s)
+    ```
 - [ ] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
