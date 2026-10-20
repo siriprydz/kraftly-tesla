@@ -30,9 +30,10 @@ Kolla `<html lang>`, sidtiteln i `index.html`, och om tabellrubriker har `scope=
 
 ## Komponentbiblioteket
 
-| Komponent | Ersätter                                                                                                                        | API                                                                                     |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `KButton` | BaseButton, AppButton och element som beter sig som en knapp, oavsett om de hade button som element eller var "falska knappar". | `variant`: primary · secondary · text · inactivated, `type`, `block`, texten är en slot |
+| Komponent    | Ersätter                                                                                                                        | API                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `KButton`    | BaseButton, AppButton och element som beter sig som en knapp, oavsett om de hade button som element eller var "falska knappar". | `variant`: primary · secondary · text · inactivated, `type`, `block`, texten är en slot |
+| `StatusChip` | Statusvisningen för en faktura i fakturatabellen.                                                                               | Obligatorisk prop `invoice`; visar statusen Betald, Obetald eller Förfallen.            |
 
 ```npm run storybook    # komponenterna med stories, fliken Accessibility
 npm run test:a11y    # axe-testerna (filerna *.a11y.test.js)
