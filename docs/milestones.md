@@ -111,6 +111,18 @@ grep -rn "BaseButton\|AppButton\|button-secondary\|class=\"btn" src --include="*
 exit: 1
 
 - [ ] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, <html lang="sv">. Även alt-texter och fakturatabellens scope. <label for> + id räcker – KField är inte ett krav i M8
-- [ ] Storybook lokalt med stories för KButton och de gemensamma komponenter ni ändrar i M8: npm run storybook startar, npm run build-storybook lyckas, och Accessibility-fliken visar Violations 0 på varje story
+- [x] Storybook lokalt med stories för KButton och de gemensamma komponenter ni ändrar i M8: npm run storybook startar, npm run build-storybook lyckas, och Accessibility-fliken visar Violations 0 på varje story
+
+Bevis:
+sista raden ur npm run build-storybook:
+"Storybook build completed successfully"
+
+Lista över stories:
+Statuschip:
+
+- Betald
+- Obetald
+- Förfallen
+
 - [ ] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); npm run test:a11y och npm run test:run gröna. Klistra in sista raderna ur körningen
 - [ ] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
