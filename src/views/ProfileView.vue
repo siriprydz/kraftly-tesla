@@ -12,7 +12,7 @@
       <input id="profile-email" v-model="email" type="email" autocomplete="email" />
       <label for="profile-address">Adress</label>
       <input id="profile-address" v-model="address" type="text" autocomplete="street-address" />
-      <KButton color="#12b76a" @click="save">Spara ändringar</KButton>
+      <KButton @click="save">Spara ändringar</KButton>
       <KButton variant="secondary" style="margin-left: 10px" @click="reset">Ångra</KButton>
     </div>
   </div>
@@ -60,6 +60,6 @@ label {
 }
 
 .field-label {
-  color: #7c8698;
+  color: #5c6679;
 }
 </style>

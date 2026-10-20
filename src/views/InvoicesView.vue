@@ -3,28 +3,32 @@
     <h1>Fakturor</h1>
     <div class="card">
       <table>
-        <tr>
-          <th>Faktura</th>
-          <th>Period</th>
-          <th>Belopp</th>
-          <th>Förfaller</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-        <tr v-for="invoice in invoices" :key="invoice.id">
-          <td>{{ invoice.id }}</td>
-          <td>{{ invoice.period }}</td>
-          <td>{{ formatAmount(invoice.amount) }} kr</td>
-          <td>{{ invoice.due }}</td>
-          <td>
-            <StatusChip :invoice="invoice" />
-          </td>
-          <td>
-            <KButton class="download" variant="text" @click="downloadInvoice(invoice)"
-              >Ladda ner</KButton
-            >
-          </td>
-        </tr>
+        <thead>
+          <tr>
+            <th scope="col">Faktura</th>
+            <th scope="col">Period</th>
+            <th scope="col">Belopp</th>
+            <th scope="col">Förfaller</th>
+            <th scope="col">Status</th>
+            <th scope="col"><span class="visually-hidden">Åtgärd</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="invoice in invoices" :key="invoice.id">
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.period }}</td>
+            <td>{{ formatAmount(invoice.amount) }} kr</td>
+            <td>{{ invoice.due }}</td>
+            <td>
+              <StatusChip :invoice="invoice" />
+            </td>
+            <td>
+              <KButton class="download" variant="text" @click="downloadInvoice(invoice)">
+                Ladda ner <span class="visually-hidden">faktura {{ invoice.id }}</span>
+              </KButton>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>

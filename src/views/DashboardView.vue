@@ -118,7 +118,7 @@ const showTips = () => {
 
 .stat-label {
   font-size: 13px;
-  color: #7c8698;
+  color: #5c6679;
   margin-bottom: 6px;
 }
 
