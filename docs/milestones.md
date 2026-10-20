@@ -124,5 +124,12 @@ Statuschip:
 - Obetald
 - Förfallen
 
+KButton:
+
+- Primär
+- Sekundär
+- Text
+- Inaktiverad
+
 - [ ] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); npm run test:a11y och npm run test:run gröna. Klistra in sista raderna ur körningen
 - [ ] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
