@@ -1,0 +1,93 @@
+# AI-granskning av pull requests (vecka 10, M9)
+# Varje PR mot main: diffen under src/ skickas till en språkmodell, svaret postas som kommentar på PR:en.
+# Kommentaren är ett FÖRSLAG. Jobbet är aldrig en required check och blir aldrig rött på grund
+# av modellen – skriptet avslutar alltid med 0. Regler och utvärdering: docs/ai-in-pipeline.md.
+name: AI-granskning
+
+on:
+  pull_request:
+    types: [opened, synchronize] # ny PR och varje ny push till den – varje push ger en ny kommentar
+
+# Minsta rättigheter: läsa koden och skriva en kommentar. Inget annat – inte merga, inte pusha.
+permissions:
+  contents: read
+  pull-requests: write
+
+# Ny push till samma PR avbryter granskningen av den förra – ingen idé att betala för en gammal diff.
+concurrency:
+  group: ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    name: AI-granskning (förslag)
+    runs-on: ubuntu-latest
+    # Inga forkar: en PR från en fork får inte se våra secrets – och en främling ska inte kunna
+    # styra modellen eller trigga anrop på vår faktura.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    timeout-minutes: 10 # ett anrop tar sekunder – ett som hänger ska inte äta Actions-minuter
+    env:
+      CYPRESS_INSTALL_BINARY: 0 # npm ci behöver inte Cypress-binären (~250 MB) för det här jobbet
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # hela historiken – annars finns inte main att jämföra med
+
+      # Diffen mot målgrenen, bara src/: lockfiler och konfiguration är brus och kostar tokens.
+      # Tre punkter (...) = det som ändrats på PR-grenen sedan den gick ut från main.
+      # Över 1 500 rader granskas inte: kvaliteten rasar med storleken, och tokens kostar pengar.
+      - name: Diffen
+        id: diff
+        env:
+          BASE_REF: ${{ github.base_ref }} # via env, inte inklistrat i skriptet
+        run: |
+          git diff "origin/$BASE_REF...HEAD" -- 'src/**' > diff.patch
+          RADER=$(wc -l < diff.patch)
+          echo "Diffen under src/ är $RADER rader"
+          if [ "$RADER" -gt 1500 ]; then
+            echo "_AI-granskning hoppades över: diffen är $RADER rader (tak 1 500). Dela upp PR:en._" > review.md
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          elif [ "$RADER" -eq 0 ]; then
+            echo "_AI-granskning hoppades över: inga ändringar under src/._" > review.md
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.diff.outputs.skip != 'true'
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        if: steps.diff.outputs.skip != 'true'
+
+      # Nyckeln kommer ur repots secrets och lever bara i det här steget – aldrig i koden.
+      # Saknas den skriver skriptet "hoppades över" i stället för att fela.
+      - name: Granska
+        if: steps.diff.outputs.skip != 'true'
+        continue-on-error: true # även ett oväntat fel i skriptet får inte göra jobbet rött
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/ai-review.mjs diff.patch > review.md
+
+      # Kommentaren på PR:en
+      - name: Kommentera
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const review = fs.existsSync('review.md') && fs.readFileSync('review.md', 'utf8').trim()
+              ? fs.readFileSync('review.md', 'utf8')
+              : '_AI-granskningen gav inget svar – se loggen._'
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: [
+                '## 🤖 AI-granskning (förslag, inte beslut)',
+                '',
+                review,
+                '',
+                '---',
+                '_Granskaren läser ändå koden. Håller ni inte med: svara på kommentaren med varför. Regler: `docs/ai-in-pipeline.md`._'
+              ].join('\n')
+            })
