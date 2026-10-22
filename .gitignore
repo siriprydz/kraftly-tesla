@@ -10,3 +10,7 @@ dist
 
 storybook-static/
 *storybook.log
+
+# AI-granskningen – skapas av workflowen och vid lokal provkörning
+diff.patch
+review.md

@@ -17,7 +17,8 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test:a11y": "vitest run a11y"
+    "test:a11y": "vitest run a11y",
+    "ai-review": "node scripts/ai-review.mjs"
   },
   "lint-staged": {
     "*.{js,vue}": [
@@ -36,6 +37,7 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.1",
     "@storybook/addon-a11y": "^10.6.1",
