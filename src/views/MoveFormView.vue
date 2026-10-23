@@ -74,11 +74,12 @@ const submit = async () => {
   errors.value = validationErrors
 
   if (Object.keys(validationErrors).length > 0) {
-    const firstInvalid =
-      FIELD_ORDER.find((field) => validationErrors[field]) ?? Object.keys(validationErrors)[0]
-    // Fokus på fältet gör att skärmläsaren läser upp dess label och fel
-    await nextTick()
-    document.getElementById(firstInvalid)?.focus()
+    const firstInvalid = FIELD_ORDER.find((field) => validationErrors[field])
+    if (firstInvalid) {
+      // Fokus på fältet gör att skärmläsaren läser upp dess label och fel
+      await nextTick()
+      document.getElementById(firstInvalid).focus()
+    }
     return
   }
 
