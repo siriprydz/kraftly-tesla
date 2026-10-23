@@ -4,27 +4,21 @@
     <div class="card" style="max-width: 560px">
       <p style="margin-bottom: 14px">Fyll i uppgifterna nedan så flyttar vi ditt elavtal.</p>
 
-      <label for="address">Ny adress</label>
-      <input id="address" v-model="form.address" type="text" placeholder="Ny adress" />
-      <p v-if="errors.address" class="error">{{ errors.address }}</p>
-
-      <label for="zip">Postnummer</label>
-      <input id="zip" v-model="form.zip" type="text" placeholder="Postnummer" />
-      <p v-if="errors.zip" class="error">{{ errors.zip }}</p>
-
-      <label for="city">Ort</label>
-      <input id="city" v-model="form.city" type="text" placeholder="Ort" />
-      <p v-if="errors.city" class="error">{{ errors.city }}</p>
-
-      <label for="date">Inflyttningsdatum</label>
-      <input
-        id="date"
-        v-model="form.date"
-        type="text"
-        placeholder="Inflyttningsdatum (ÅÅÅÅ-MM-DD)"
+      <KField
+        v-model="form.address"
+        label="Ny adress"
+        autocomplete="street-address"
+        :error="errors.address"
       />
-      <p v-if="errors.date" class="error">{{ errors.date }}</p>
-
+      <KField
+        v-model="form.zip"
+        label="Postnummer"
+        inputmode="numeric"
+        autocomplete="postal-code"
+        :error="errors.zip"
+      />
+      <KField v-model="form.city" label="Ort" autocomplete="address-level2" :error="errors.city" />
+      <KField v-model="form.date" label="Inflyttningsdatum (ÅÅÅÅ-MM-DD)" :error="errors.date" />
       <label for="contract">Avtal</label>
       <select id="contract" v-model="form.contract">
         <option disabled value="">Välj avtal</option>
@@ -48,6 +42,7 @@ import { ref, reactive } from 'vue'
 import KButton from '../components/KButton.vue'
 import { submitMove } from '../services/api'
 import { validateMove } from '../utils/validateMove.js'
+import KField from '../components/KField.vue'
 
 const form = reactive({ address: '', zip: '', city: '', date: '', contract: '' })
 const reference = ref(null)

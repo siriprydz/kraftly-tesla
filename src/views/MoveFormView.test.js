@@ -33,13 +33,10 @@ describe('MoveFormView', () => {
     const user = userEvent.setup()
     render(MoveFormView)
 
-    await user.type(screen.getByPlaceholderText('Ny adress'), 'Storgatan 1')
-    await user.type(screen.getByPlaceholderText('Postnummer'), '12345')
-    await user.type(screen.getByPlaceholderText('Ort'), 'Stockholm')
-    await user.type(
-      screen.getByPlaceholderText('Inflyttningsdatum (ÅÅÅÅ-MM-DD)'),
-      isoDatePlusDays(20),
-    )
+    await user.type(screen.getByLabelText('Ny adress'), 'Storgatan 1')
+    await user.type(screen.getByLabelText('Postnummer'), '12345')
+    await user.type(screen.getByLabelText('Ort'), 'Stockholm')
+    await user.type(screen.getByLabelText('Inflyttningsdatum (ÅÅÅÅ-MM-DD)'), isoDatePlusDays(20))
     await user.selectOptions(screen.getByRole('combobox'), 'Rörligt pris')
 
     await user.click(screen.getByRole('button', { name: 'Skicka flyttanmälan' }))
