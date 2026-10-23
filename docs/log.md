@@ -112,3 +112,30 @@ Vad som var svårt:
 - Render kopplades till GitHub via Render deploy hook
 - Elin skrev deploy.md och loggen
 - Siri skrev decisions/hosting.md
+
+## 2026-10-23 · Boiler Room 3
+
+### Gjort:
+
+- Lagt in Storybook-jobbet i pipelinen.
+- KField-komponenten skapad, inlagd i Storybook och implementerad i projektet.
+- NorwayNotice blev en egen komponent och inlagd i Storybook
+- Diagrammet i ConsumptionChart har fått en tillgänglig summering och blivit tillagd i Storybook.
+- Ett axe-test för flyttanmälan, också när felen visas.
+
+### Grönt:
+
+https://github.com/siriprydz/kraftly-tesla/pull/81 (jobbet las till som required check efter mergen).
+Ytterligare exempel på körning i [M9 i milestones](./milestones.md#m9).
+
+### Kvar till M9-taggen tisdag:
+
+Allt är klart, bara taggen kvar.
+
+### En siffra från i dag:
+
+Tiden för Storybook-jobbet: 37s
+
+### Fastnat på:
+
+Fick läsa lite om vad storybook-static är för mapp innan jag förstod att jag behövde radera det som redan fanns där och fylla på den med det jag fått från artefakten.
