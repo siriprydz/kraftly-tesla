@@ -46,6 +46,11 @@
       </select>
       <p v-if="errors.contract" id="contract-error" class="error">{{ errors.contract }}</p>
 
+      <!-- Ytan finns alltid: en del skärmläsare missar en alert som läggs till med texten i -->
+      <div role="alert">
+        <p v-for="[key, message] in otherErrors" :key="key" class="error">{{ message }}</p>
+      </div>
+
       <KButton type="submit" @click="submit">Skicka flyttanmälan</KButton>
       <p class="hint" style="margin-top: 8px">Anmälan måste göras senast 14 dagar före flytt</p>
       <p v-if="reference" style="color: #067647; margin-top: 10px">
@@ -56,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, nextTick } from 'vue'
+import { ref, reactive, computed, nextTick } from 'vue'
 import KButton from '../components/KButton.vue'
 import { submitMove } from '../services/api'
 import { validateMove } from '../utils/validateMove.js'
@@ -68,6 +73,11 @@ const FIELD_ORDER = ['address', 'zip', 'city', 'date', 'contract']
 const form = reactive({ address: '', zip: '', city: '', date: '', contract: '' })
 const reference = ref(null)
 const errors = ref({})
+
+// Fel som inte hör till något fält har ingen egen plats i formuläret
+const otherErrors = computed(() =>
+  Object.entries(errors.value).filter(([key]) => !FIELD_ORDER.includes(key)),
+)
 
 const submit = async () => {
   const validationErrors = validateMove(form, new Date())

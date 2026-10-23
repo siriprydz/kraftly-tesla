@@ -52,7 +52,7 @@ describe('MoveFormView', () => {
     expect(await screen.findByText('Tack! Referensnummer: FLYTT-12345')).toBeInTheDocument()
   })
 
-  it('does not submit when validation returns an error for a field outside the form', async () => {
+  it('shows an error that does not belong to a field and does not submit', async () => {
     const user = userEvent.setup()
     render(MoveFormView)
     validateMove.mockReturnValueOnce({ form: 'Något gick fel' })
@@ -60,6 +60,7 @@ describe('MoveFormView', () => {
 
     await user.click(screen.getByRole('button', { name: 'Skicka flyttanmälan' }))
 
+    expect(screen.getByRole('alert')).toHaveTextContent('Något gick fel')
     expect(submitMove).not.toHaveBeenCalled()
   })
 })
