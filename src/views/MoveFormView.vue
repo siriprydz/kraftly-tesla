@@ -4,35 +4,52 @@
     <div class="card" style="max-width: 560px">
       <p style="margin-bottom: 14px">Fyll i uppgifterna nedan så flyttar vi ditt elavtal.</p>
 
-      <label for="address">Ny adress</label>
-      <input id="address" v-model="form.address" type="text" placeholder="Ny adress" />
-      <p v-if="errors.address" class="error">{{ errors.address }}</p>
-
-      <label for="zip">Postnummer</label>
-      <input id="zip" v-model="form.zip" type="text" placeholder="Postnummer" />
-      <p v-if="errors.zip" class="error">{{ errors.zip }}</p>
-
-      <label for="city">Ort</label>
-      <input id="city" v-model="form.city" type="text" placeholder="Ort" />
-      <p v-if="errors.city" class="error">{{ errors.city }}</p>
-
-      <label for="date">Inflyttningsdatum</label>
-      <input
+      <KField
+        id="address"
+        v-model="form.address"
+        label="Ny adress"
+        autocomplete="street-address"
+        :error="errors.address"
+      />
+      <KField
+        id="zip"
+        v-model="form.zip"
+        label="Postnummer"
+        inputmode="numeric"
+        autocomplete="postal-code"
+        :error="errors.zip"
+      />
+      <KField
+        id="city"
+        v-model="form.city"
+        label="Ort"
+        autocomplete="address-level2"
+        :error="errors.city"
+      />
+      <KField
         id="date"
         v-model="form.date"
-        type="text"
-        placeholder="Inflyttningsdatum (ÅÅÅÅ-MM-DD)"
+        label="Inflyttningsdatum (ÅÅÅÅ-MM-DD)"
+        :error="errors.date"
       />
-      <p v-if="errors.date" class="error">{{ errors.date }}</p>
-
       <label for="contract">Avtal</label>
-      <select id="contract" v-model="form.contract">
+      <select
+        id="contract"
+        v-model="form.contract"
+        :aria-invalid="errors.contract ? 'true' : undefined"
+        :aria-describedby="errors.contract ? 'contract-error' : undefined"
+      >
         <option disabled value="">Välj avtal</option>
         <option>Rörligt pris</option>
         <option>Fast pris 1 år</option>
         <option>Fast pris 3 år</option>
       </select>
-      <p v-if="errors.contract" class="error">{{ errors.contract }}</p>
+      <p v-if="errors.contract" id="contract-error" class="error">{{ errors.contract }}</p>
+
+      <!-- Ytan finns alltid: en del skärmläsare missar en alert som läggs till med texten i -->
+      <div role="alert">
+        <p v-for="[key, message] in otherErrors" :key="key" class="error">{{ message }}</p>
+      </div>
 
       <KButton type="submit" @click="submit">Skicka flyttanmälan</KButton>
       <p class="hint" style="margin-top: 8px">Anmälan måste göras senast 14 dagar före flytt</p>
@@ -44,20 +61,35 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed, nextTick } from 'vue'
 import KButton from '../components/KButton.vue'
 import { submitMove } from '../services/api'
 import { validateMove } from '../utils/validateMove.js'
+import KField from '../components/KField.vue'
+
+// Samma ordning som i formuläret – validateMove lägger inte felen i den ordningen
+const FIELD_ORDER = ['address', 'zip', 'city', 'date', 'contract']
 
 const form = reactive({ address: '', zip: '', city: '', date: '', contract: '' })
 const reference = ref(null)
 const errors = ref({})
+
+// Fel som inte hör till något fält har ingen egen plats i formuläret
+const otherErrors = computed(() =>
+  Object.entries(errors.value).filter(([key]) => !FIELD_ORDER.includes(key)),
+)
 
 const submit = async () => {
   const validationErrors = validateMove(form, new Date())
   errors.value = validationErrors
 
   if (Object.keys(validationErrors).length > 0) {
+    const firstInvalid = FIELD_ORDER.find((field) => validationErrors[field])
+    if (firstInvalid) {
+      // Fokus på fältet gör att skärmläsaren läser upp dess label och fel
+      await nextTick()
+      document.getElementById(firstInvalid).focus()
+    }
     return
   }
 
