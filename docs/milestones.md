@@ -88,7 +88,6 @@ etag: W/"6ab62dd3-48"
 
 - [x] Gemensamma komponenter extraherade: EN Button-komponent (KButton) ersätter alla tre varianter och div-knapparna. Inga BaseButton, AppButton, .btn eller .button-secondary kvar, och inget element med @click som inte är en knapp eller länk
   - **Inventering före ändringen:**
-
     | Var                               | Kod                                                                               |
     | --------------------------------- | --------------------------------------------------------------------------------- |
     | `src/App.vue:12`                  | `<span class="logout" @click="logout">Logga ut`                                   |
@@ -103,29 +102,24 @@ etag: W/"6ab62dd3-48"
     | `src/views/InvoicesView.vue:20`   | `<div class="download" @click="downloadInvoice(invoice)">Ladda ner`               |
     | `src/views/MoveFormView.vue:37`   | `<BaseButton @click="submit">Skicka flyttanmälan`                                 |
     | `src/views/MoveFormView.vue:48`   | `import BaseButton from '../components/BaseButton.vue'`                           |
-
   - **Bevis:** inga äldre knappvarianter hittas; grep avslutas med kod 1 när sökningen saknar träffar.
-
     ```text
     grep -rn "BaseButton\|AppButton\|button-secondary\|class=\"btn" src --include="*.vue"; echo "exit: $?"
     exit: 1
     ```
 
-- [x] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, <html lang="sv">. Även alt-texter och fakturatabellens scope. <label for> + id räcker – KField är inte ett krav i M8
+- [x] Labels, fokusstilar, kontrast och lang åtgärdade: varje fält har en kopplad label (inte bara placeholder), fokus syns vid Tab överallt (:focus-visible, ingen outline: none kvar), text klarar 4,5:1, . Även alt-texter och fakturatabellens scope. + id räcker – KField är inte ett krav i M8
 - [x] Storybook lokalt med stories för KButton och de gemensamma komponenter ni ändrar i M8: npm run storybook startar, npm run build-storybook lyckas, och Accessibility-fliken visar Violations 0 på varje story
   - **Bevis:** sista raden från `npm run build-storybook`.
-
     ```text
     Storybook build completed successfully
     ```
-
   - **Stories:**
     - `StatusChip`: Betald, Obetald, Förfallen
     - `KButton`: Primär, Sekundär, Text, Inaktiverad
 
 - [x] axe-tester gröna lokalt: ett *.a11y.test.js för KButton och ett för inloggningen (axe + getByLabelText); `npm run test:a11y` och `npm run test:run` gröna. Klistra in sista raderna ur körningen.
   - **Bevis:**
-
     ```text
     npm run test:a11y
 
@@ -142,3 +136,41 @@ etag: W/"6ab62dd3-48"
       Duration  2.43s (transform 824ms, setup 3.02s, import 2.94s, tests 1.52s, environment 12.57s)
     ```
 - [x] Tangentbordsnavigering verifierad, dokumenterad i docs/accessibility.md: varje vy genomgången med bara tangentbordet, före och efter, med resultat per vy
+
+## M9
+
+### Vad vi har gjort:
+
+- [x] Komponentbiblioteket i pipelinen: KField (label obligatorisk, useId(), aria-describedby för hjälptext och fel, aria-invalid) används i inloggning, profil och flyttanmälan, med story (Violations 0) och test · ett jobb Storybook i ci.yml (npm run build-storybook, artefakt), required check
+  - **KField:** `src/components/KField.vue` - `label` är `required: true`, id från `useId()`, `aria-describedby` pekar på hjälptext och fel, `aria-invalid` när fältet har fel.
+  - **Används i:** `LoginView.vue`, `ProfileView.vue` och `MoveFormView.vue`.
+  - **Story:** `src/components/KField.stories.js` - Standard, Med hjälptext, Med fel. Violations 0 i Accessibility-fliken.
+  - **Test:** `src/components/KField.a11y.test.js`.
+    ```text
+    npm run test:a11y
+
+    Test Files  5 passed (5)
+         Tests  17 passed (17)
+
+    npm run test:run
+
+    Test Files  18 passed (18)
+         Tests  88 passed (88)
+    ```
+  - **Jobbet Storybook:** i `.github/workflows/ci.yml` - kör `npm run build-storybook` och laddar upp `storybook-static` som artefakt. Grönt på `main`: [körning för #84](https://github.com/siriprydz/kraftly-tesla/actions/runs/39934870952).
+  - **Required check:** Storybook står bland de obligatoriska kontrollerna för `main`, tillsammans med quality, build, e2e, Image → GHCR och Prestandabudget (Lighthouse).
+
+- [x] Ett AI-steg i pipelinen, utvärderat på riktiga PR:ar: ai-review.yml + scripts/ai-review.mjs postar granskningspunkter som kommentar, som förslag, aldrig required check. Utvärdering på minst tre av teamets riktiga PR:ar: tabellen träff / miss / oavgjord, två exempel (en träff, en miss, med citat) och regeln (när ni litar på den, vad ni gör när ni inte håller med) – allt i ett dokument, docs/ai-in-pipeline.md
+  - **Filerna:** `.github/workflows/ai-review.yml` och `scripts/ai-review.mjs`. Nyckeln `ANTHROPIC_API_KEY` ligger i GitHub Secrets.
+  - **Första kommentaren:** [#82](https://github.com/siriprydz/kraftly-tesla/pull/82).
+  - **Inte required:** jobbet AI-granskning (förslag) körs på varje PR men står inte bland de obligatoriska kontrollerna för `main` (se listan ovan).
+  - **Utvärdering, exempel och regel:** [docs/ai-in-pipeline.md](./ai-in-pipeline.md) - 4 PR:ar (#82, #83, #84, #85): 4 träffar, 0 missar, 0 oavgjorda.
+
+- [x] Hållbarhetssiffran kopplad till M7 + ett etikfall: docs/sustainability.md med tabellen Före M7 / Efter M7 i kB per besök → kg CO2e per månad med scripts/co2.mjs (co2.js, Sustainable Web Design-modellen, svensk elmix, 40 000 kunder i månaden, antagandena utskrivna), tre meningar om metoden och vad som inte räknas · ett etikfall, "Chatta med Kraftly": situationen, ert beslut, varför, villkor
+  - **Siffrorna:** [docs/sustainability.md](./sustainability.md), uppmätt med `npm run co2`.
+    |                     | kB per besök | kg CO2e per månad (SE) |
+    | ------------------- | -----------: | ---------------------: |
+    | Före M7 (taggen M6) |        6 882 |                   52,3 |
+    | Efter M7 (main)     |          274 |                    2,1 |
+  - **Antaganden:** 40 000 kunder × 3,2 sessioner = 128 000 besök per månad, varje besök som ett första besök, svensk elmix 35,89 g CO2e/kWh.
+  - **Etikfallet "Chatta med Kraftly":** i samma dokument, med situationen, beslutet, varför och villkoren.
