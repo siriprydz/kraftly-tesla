@@ -60,6 +60,26 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+  storybook:
+    name: Storybook
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # Bygger varje story till en statisk sajt i storybook-static/. Går en story inte att
+      # bygga – fel import, en komponent som inte kompilerar – blir jobbet rött.
+      - run: npm run build-storybook
+      # Den byggda Storybooken som artefakt: vem som helst i teamet kan ladda ner den
+      # från körningen och bläddra i komponenterna utan att klona repot.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook
+          path: storybook-static
+          retention-days: 7
   lighthouse:
     name: Prestandabudget (Lighthouse)
     runs-on: ubuntu-latest
