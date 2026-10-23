@@ -30,7 +30,11 @@ describe('ConsumptionChart tests', () => {
       },
     })
 
-    expect(screen.getByRole('img', { name: 'Förbrukningsdiagram' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('img', {
+        name: 'Förbrukning per månad i kWh: Jul 210, Aug 195',
+      }),
+    ).toBeInTheDocument()
   })
 
   it('sends months and values to the chart', () => {

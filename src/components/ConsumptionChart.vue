@@ -1,15 +1,24 @@
 <template>
-  <canvas ref="canvas" height="120" role="img" aria-label="Förbrukningsdiagram" />
+  <canvas ref="canvas" role="img" :aria-label="summary" />
 </template>
 
 <script setup>
 import { Chart, BarController, BarElement, CategoryScale, LinearScale, Tooltip } from 'chart.js'
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip)
 
-const props = defineProps({ months: Array, values: Array })
+const props = defineProps({
+  months: { type: Array, default: () => [] },
+  values: { type: Array, default: () => [] },
+})
 const canvas = ref(null)
+const summary = computed(
+  () =>
+    'Förbrukning per månad i kWh: ' +
+    (props.months ?? []).map((m, i) => `${m} ${props.values?.[i]}`).join(', '),
+)
+
 let chart = null
 
 onMounted(() => {
