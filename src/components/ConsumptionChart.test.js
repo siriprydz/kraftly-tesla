@@ -35,6 +35,19 @@ describe('ConsumptionChart tests', () => {
         name: 'Förbrukning per månad i kWh: Jul 210, Aug 195',
       }),
     ).toBeInTheDocument()
+    expect(screen.getByRole('img')).toHaveAttribute('lang', 'sv')
+  })
+
+  it('describes missing values without reading undefined or null', () => {
+    render(ConsumptionChart, {
+      props: { months: ['Jul', 'Aug', 'Sep'], values: [210, null] },
+    })
+
+    expect(
+      screen.getByRole('img', {
+        name: 'Förbrukning per månad i kWh: Jul 210, Aug data saknas, Sep data saknas',
+      }),
+    ).toBeInTheDocument()
   })
 
   it('sends months and values to the chart', () => {

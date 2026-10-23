@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas" role="img" :aria-label="summary" />
+  <canvas ref="canvas" role="img" lang="sv" :aria-label="summary" />
 </template>
 
 <script setup>
@@ -16,7 +16,7 @@ const canvas = ref(null)
 const summary = computed(
   () =>
     'Förbrukning per månad i kWh: ' +
-    (props.months ?? []).map((m, i) => `${m} ${props.values?.[i]}`).join(', '),
+    (props.months ?? []).map((m, i) => `${m} ${props.values?.[i] ?? 'data saknas'}`).join(', '),
 )
 
 let chart = null
