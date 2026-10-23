@@ -9,9 +9,14 @@ Första riktiga PR:en: #… – tid från push till kommentar: …. Kostnad per 
 
 Claude Opus 5.5 22-27 oktober 2026
 
-| PR                                                                                                          | Punkten i några ord                                                                   | Träff / miss / oavgjord | Varför                                                                                       |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------- |
-| [https://github.com/siriprydz/kraftly-tesla/pull/82](https://github.com/siriprydz/kraftly-tesla/pull/82)36s | `v`Felmeddelandet (`<p v-if="error">`) dyker upp först efter att formuläret skickats, | träff                   | Den har rätt, dock låg prio, och ett bra exemplet på varför den inte ska kunna blocka en PR. |
+| PR                                                                                                          | Punkten i några ord                                                                   | Träff / miss / oavgjord | Varför                                                                                                                                                                    |
+| ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [https://github.com/siriprydz/kraftly-tesla/pull/82](https://github.com/siriprydz/kraftly-tesla/pull/82)36s | `v`Felmeddelandet (`<p v-if="error">`) dyker upp först efter att formuläret skickats, | träff                   | Den har rätt, dock låg prio, och ett bra exemplet på varför den inte ska kunna blocka en PR.                                                                              |
+| [https://github.com/siriprydz/kraftly-tesla/pull/84](https://github.com/siriprydz/kraftly-tesla/pull/84)40s | **MoveFormView.vue – kontrollen som stoppar inskickning har försvagats.**             | Träff                   | Ändringen hade försvagat kontrollen så att fel utanför `FIELD_ORDER` inte stoppade anmälan. Inget testfall fångade det. Vi återställde kontrollen och lade till ett test. |
+|                                                                                                             |                                                                                       |                         |                                                                                                                                                                           |
+|                                                                                                             |                                                                                       |                         |                                                                                                                                                                           |
+|                                                                                                             |                                                                                       |                         |                                                                                                                                                                           |
+|                                                                                                             |                                                                                       |                         |                                                                                                                                                                           |
 
 Totalt: … punkter på … PR:ar – … träffar, … missar, … oavgjorda.
 
@@ -19,13 +24,9 @@ Totalt: … punkter på … PR:ar – … träffar, … missar, … oavgjorda.
 
 ### Träff:
 
->
-
 <Vad som var rätt, och vad ni gjorde.>
 
 ### Miss:
-
->
 
 <Vad som var fel, och varför modellen trodde det.>
 
