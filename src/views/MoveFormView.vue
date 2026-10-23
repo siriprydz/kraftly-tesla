@@ -73,8 +73,9 @@ const submit = async () => {
   const validationErrors = validateMove(form, new Date())
   errors.value = validationErrors
 
-  const firstInvalid = FIELD_ORDER.find((field) => validationErrors[field])
-  if (firstInvalid) {
+  if (Object.keys(validationErrors).length > 0) {
+    const firstInvalid =
+      FIELD_ORDER.find((field) => validationErrors[field]) ?? Object.keys(validationErrors)[0]
     // Fokus på fältet gör att skärmläsaren läser upp dess label och fel
     await nextTick()
     document.getElementById(firstInvalid)?.focus()
