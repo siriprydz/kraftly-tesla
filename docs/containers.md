@@ -8,7 +8,7 @@ Från ren klon:
 docker compose up --build
 ```
 
-Öppna `http://localhost:8080`. Logga in med valfri e-post och lösenord — mock-API:t accepterar alla.
+Öppna `http://localhost:8080`. Logga in med ett testkonto, till exempel `anna.andersson@example.com` / `kraftly-anna`.
 
 ## Använd det riktiga API:t
 
@@ -16,7 +16,7 @@ Ange API-adress och nyckel i `.env`:
 
 ```env
 API_KEY=<riktig-api-nyckel>
-API_URL=https://kraftly-api-staging.onrender.com
+API_URL=https://kraftly-api.sprinto.cloud
 ```
 
 Nginx proxar API-anropen och lägger till nyckeln. Samma `API_URL` används i

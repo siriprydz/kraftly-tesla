@@ -1,4 +1,4 @@
-# Beslut: hosting
+# Beslut: rendering
 
 **Datum:** 2026-20-12
 **Beslut:** Vi fortsätter rendera kraftlys prtal som SPA

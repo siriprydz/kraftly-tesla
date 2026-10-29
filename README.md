@@ -14,28 +14,84 @@ https://kraftly-tesla.onrender.com
 
 ## Getting started
 
+Kräver **Node 22** .
+
 Kopiera miljövariablerna (en gång, filen committas inte):
 
 ```bash
 cp .env.example .env
 ```
 
-Utan docker:
+### Utan Docker
+
+Kör mock-API:t och Vite i **två terminaler**. Båda processerna fortsätter köra, så den andra startar aldrig om de står i samma terminal.
+
+Terminal 1:
 
 ```bash
 npm install
 npm run api
+```
+
+Terminal 2:
+
+```bash
 npm run dev
 ```
 
-med docker:
+Öppna http://localhost:5173.
+
+### Med Docker
+
+Docker Desktop måste vara installerat **och igång** på din dator. Port 8080 ska vara ledig.
 
 ```bash
-npm install
 docker compose up --build
 ```
 
-> TODO: write proper documentation
+Öppna http://localhost:8080.
+
+### Hur du vet att det fungerar
+
+Logga in med ett av testkontona. Du ska se översikten med **Hej Anna!** eller **Hej Bo!** plus förbrukning och tre kort.
+
+| Kund           | E-post                     | Lösenord     |
+| -------------- | -------------------------- | ------------ |
+| Anna Andersson | anna.andersson@example.com | kraftly-anna |
+| Bo Bergström   | bo.bergstrom@example.com   | kraftly-bo   |
+
+Fungerar det inte: kolla att `.env` finns (kopierad från `.env.example`) och att du öppnat rätt adress.
+
+## Dokumentation
+
+| Fil                      | Svarar på                                                                                       |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| `docs/architecture.md`   | Vad pratar med vad, var kör det, lagren i frontend                                              |
+| `docs/decisions/`        | Varför – ett dokument per beslut (hosting, tokenlagring, feature flags, rendering, e2e-verktyg) |
+| `docs/deploy.md`         | Hur en ändring når staging och prod, var hemligheterna bor, rollback                            |
+| `docs/pipeline.md`       | Vad som krävs för att merga, vad man gör när `main` är röd                                      |
+| `docs/readiness.md`      | Checklistan _Produktionsfärdig app_ med status per rad (spår 3)                                 |
+| `docs/known-issues.md`   | Vad som är känt trasigt eller medvetet ogjort (spår 3)                                          |
+| `docs/containers.md`     | Hur man kör i Docker, image-storlek, hur browsern når API:t                                     |
+| `docs/testing.md`        | Vad som testas var                                                                              |
+| `docs/security.md`       | Inloggningen, OWASP-genomgången och kända säkerhetsbrister                                      |
+| `docs/performance.md`    | Hur vi mäter, optimeringarna, budgeten i CI                                                     |
+| `docs/accessibility.md`  | Komponentbiblioteket, tangentbordsgenomgången och kända a11y-brister                            |
+| `docs/ai-in-pipeline.md` | AI-granskningen och vår regel för den                                                           |
+| `docs/sustainability.md` | CO2-siffran och etikfallet                                                                      |
+| `docs/scaling.md`        | Trafikantaganden och hur vi skalar                                                              |
+| `docs/contrast.md`       | Kontrastmätningar före och efter färgbyten                                                      |
+| `docs/log.md`            | Vad vi gjorde, vad som var svårt                                                                |
+| `docs/milestones.md`     | Milstolparna och bevisen                                                                        |
+| `docs/debt.md`           | Skulden vi tog över från startkoden                                                             |
+
+| Fråga                                                                | Var svaret står                                                                                               |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Hur startar jag appen lokalt, och hur vet jag att den fungerar?      | README, _Getting started_                                                                                     |
+| Var bor hemligheterna, och hur får jag dem?                          | `docs/deploy.md`                                                                                              |
+| Hur kommer en ändring till produktion – och hur rullar man tillbaka? | `docs/deploy.md`                                                                                              |
+| Varför ser arkitekturen ut så här – var finns besluten?              | `docs/architecture.md` och `docs/decisions/`                                                                  |
+| Vad är känt trasigt eller medvetet ogjort?                           | `docs/known-issues.md` (spår 3; tills dess `docs/accessibility.md`, `docs/security.md`, `docs/containers.md`) |
 
 ## Working Agreement
 

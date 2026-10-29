@@ -4,12 +4,18 @@
 
 ```mermaid
 flowchart LR
-    PR[Pull request mot main] --> Q[quality: lint · format · test:run]
-    PR --> B[build: vite build → dist/]
-    PR --> E[e2e: smoke-test]
-    Q --> M{Alla checks gröna + 1 review?}
+    PR[Pull request mot main] --> Q[quality]
+    PR --> B[build]
+    PR --> E[e2e]
+    PR --> SB[Storybook]
+    PR --> LH[Prestandabudget]
+    PR --> IMG[Image → GHCR]
+    Q --> M{Alla required checks gröna + 1 review?}
     B --> M
     E --> M
+    SB --> M
+    LH --> M
+    IMG --> M
     M -- ja --> OK[Merge tillåten]
     M -- nej --> Stop[Merge-knappen låst]
 ```
@@ -20,7 +26,7 @@ Vi valde att köra våra jobb parallellt för att spara körtid i de flesta fall
 
 ## Beslut 2 · Vad krävs för merge?
 
-Build, Quality och e2e måste alla klaras och minst en kollega behöver godkänna PR innan kod kan mergas in till main. Ingen i teamet har möjlighet att kringgå reglerna.
+Required checks på `main` är **quality**, **build**, **e2e**, **Storybook**, **Prestandabudget (Lighthouse)** och **Image → GHCR**, plus minst en godkänd review. AI-granskningen körs på varje PR men är inte required. Ingen i teamet har möjlighet att kringgå reglerna.
 
 ## Beslut 3 · Protokoll vid röd main
 
@@ -49,7 +55,6 @@ Vi provade lägga till cypress-io/github-action@v6 för cypress cache men kom fr
 ## Skärmdump: låst merge-knapp
 
 PR #31 med ett medvetet lintfel (`var` istället för `const` i `src/utils/date.js`).
-`quality` fallerar på `npm run lint`, medan `build` och `e2e` går igenom. Alla tre är
-markerade `Required`, och merge-knappen är låst.
+`quality` fallerar på `npm run lint`. Alla required checks (quality, build, e2e, Storybook, Prestandabudget (Lighthouse), Image → GHCR) måste vara gröna, och merge-knappen är låst när någon av dem är röd.
 
 ![Blockerad merge på PR #31: quality röd, build och e2e gröna, samtliga markerade Required](images/merge-blockad.png)
