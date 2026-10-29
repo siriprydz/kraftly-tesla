@@ -25,3 +25,5 @@ Vi gillar cypress UI:t och vi känner oss mer bekväma med det då vi har jobbat
 ## Konsekvenser
 
 Om vi byter från cypress till playwright kommer vi behöva byta hela testsviten och desto längre vi väntar desto dyrare blir bytet.
+
+- **Omprövas om** Cypress återkommande blir instabilt i CI eller inte längre uppfyller våra behov för E2E-tester.
