@@ -1,6 +1,11 @@
 # Beslut: tokenlagring
 
+**Datum:** 2026-10-05
 **Beslut:** Access token lagras i minnet. Refresh token lagras i en httpOnly-cookie som API:t sätter.
+
+## Bakgrund
+
+Vi behövde välja hur tokens lagras och sessionen återställs.
 
 ## Alternativ
 
@@ -19,3 +24,5 @@ Refresh token ligger i httpOnly-cookie så att sessionen kan återställas efter
 ## Konsekvens
 
 Access token försvinner vid sidladdning/ny flik, men refresh-cookien gör att `main.js` kan hämta nytt token automatiskt. Logout rensar bara minnet idag, refresh-cookien kräver ett API-anrop för att rensas ordentligt.
+
+- **Omprövas om** autentiseringsflödet ändras eller en säkerhetsgranskning visar att tokenhanteringen inte längre uppfyller kraven.

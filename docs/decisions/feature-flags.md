@@ -31,3 +31,5 @@ Vi valde körtidsflagga för att staging och produktion ska använda samma image
 **Vad kostar lösningen? När ska flaggan tas bort och vem ansvarar för det?**
 
 Lösningen kräver att vi håller flaggan rätt inställd i varje miljö. Det kan bli stökigt med många flaggor om lanserad kod inte städas bort. När Norge-funktionen har lanserats och inte längre behöver en separat flagga ansvarar den som lade till flaggan för att ta bort den och tillhörande kod och tester. Arbetet kan delegeras, men ansvaret ligger kvar hos den personen.
+
+- **Omprövas om** Norge-funktionen lanseras och flaggan inte längre behövs.

@@ -1,7 +1,11 @@
-# Beslut: hosting
+# Beslut: rendering
 
 **Datum:** 2026-20-12
 **Beslut:** Vi fortsätter rendera kraftlys prtal som SPA
+
+## Bakgrund
+
+Vi behövde välja hur Kraftlys frontend ska renderas.
 
 ## Jämförelse
 
@@ -28,4 +32,4 @@ Nej, inte för frontend i det här läget. Det skulle krävas mycket arbete för
 
 ## Konsekvenser
 
-Beslutet kring redering skulle kunna komma att omprövas om Kraftlys portal växer bortom bara existerande kundportal och fler sidor med information eller marknadsföring till potentiella nya kunder skulle tillkomma. Skulle det hända vill vi optimera för SEO och se till att Kraftlys portal plockas upp ordertnligt av crawlers.
+Beslutet kring redering skulle kunna komma att **omprövas om** Kraftlys portal växer bortom bara existerande kundportal och fler sidor med information eller marknadsföring till potentiella nya kunder skulle tillkomma. Skulle det hända vill vi optimera för SEO och se till att Kraftlys portal plockas upp ordertnligt av crawlers.

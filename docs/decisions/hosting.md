@@ -3,6 +3,10 @@
 **Datum:** 2026-09-21
 **Beslut:** Vi använder Render för staging.
 
+## Bakgrund
+
+Vi behövde välja var Kraftlys stagingmiljö ska köras.
+
 ## Jämförelse
 
 | Tjänst                   | Kör vår image som den är? | Kostnad och betalning                        | Var nyckeln hamnar      | Kallstart? | Leverantörsspecifikt? |
@@ -25,3 +29,5 @@ Ett byte kostar främst tid för nya inställningar av image, nyckel, deploy och
 Staging: Vi accepterar kallstart, gratisnivå och personligt konto.
 
 Produktion: Vi accepterar inte kallstart eller personligt konto. Vi behöver betald drift och teamåtkomst.
+
+- **Omprövas om** Render inte längre uppfyller stagingens krav eller produktionsdriften behöver ett annat upplägg.
