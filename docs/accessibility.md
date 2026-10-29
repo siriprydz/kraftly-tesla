@@ -62,6 +62,8 @@ Endast placeholder i fält - Axe säger OK, men placeholder försvinner så fort
 
 ## Kända brister
 
+Samlad lista med påverkan och skäl: [known-issues.md](known-issues.md).
+
 Otydligt felmeddelande för datum i flyttanmälan - ingen indikation om datumet är för sent eller för tidigt, och texten är densamma som hinten i botten av formuläret.
 
 Inloggning - använderen måste tabba till logga in knappen, kan inte bara trycka enter från lösenfältet.
