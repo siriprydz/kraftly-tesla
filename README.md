@@ -2,7 +2,7 @@
 
 # kraftly-mina-sidor
 
-Customer portal for Kraftly. Delivered by Webbmakarna AB 2026-06-30.
+Kundportal för Kraftly. Originalet levererades av Webbmakarna AB 2026-06-30. Tesla har tagit över och byggt vidare.
 
 ## Staging
 
@@ -70,8 +70,8 @@ Fungerar det inte: kolla att `.env` finns (kopierad från `.env.example`) och at
 | `docs/decisions/`        | Varför – ett dokument per beslut (hosting, tokenlagring, feature flags, rendering, e2e-verktyg) |
 | `docs/deploy.md`         | Hur en ändring når staging och prod, var hemligheterna bor, rollback                            |
 | `docs/pipeline.md`       | Vad som krävs för att merga, vad man gör när `main` är röd                                      |
-| `docs/readiness.md`      | Checklistan _Produktionsfärdig app_ med status per rad (spår 3)                                 |
-| `docs/known-issues.md`   | Vad som är känt trasigt eller medvetet ogjort (spår 3)                                          |
+| `docs/readiness.md`      | Checklistan _Produktionsfärdig app_ med status per rad                                          |
+| `docs/known-issues.md`   | Vad som är känt trasigt eller medvetet ogjort                                                   |
 | `docs/containers.md`     | Hur man kör i Docker, image-storlek, hur browsern når API:t                                     |
 | `docs/testing.md`        | Vad som testas var                                                                              |
 | `docs/security.md`       | Inloggningen, OWASP-genomgången och kända säkerhetsbrister                                      |
@@ -85,13 +85,13 @@ Fungerar det inte: kolla att `.env` finns (kopierad från `.env.example`) och at
 | `docs/milestones.md`     | Milstolparna och bevisen                                                                        |
 | `docs/debt.md`           | Skulden vi tog över från startkoden                                                             |
 
-| Fråga                                                                | Var svaret står                                                                                               |
-| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Hur startar jag appen lokalt, och hur vet jag att den fungerar?      | README, _Getting started_                                                                                     |
-| Var bor hemligheterna, och hur får jag dem?                          | `docs/deploy.md`                                                                                              |
-| Hur kommer en ändring till produktion – och hur rullar man tillbaka? | `docs/deploy.md`                                                                                              |
-| Varför ser arkitekturen ut så här – var finns besluten?              | `docs/architecture.md` och `docs/decisions/`                                                                  |
-| Vad är känt trasigt eller medvetet ogjort?                           | `docs/known-issues.md` (spår 3; tills dess `docs/accessibility.md`, `docs/security.md`, `docs/containers.md`) |
+| Fråga                                                                | Var svaret står                              |
+| -------------------------------------------------------------------- | -------------------------------------------- |
+| Hur startar jag appen lokalt, och hur vet jag att den fungerar?      | README, _Getting started_                    |
+| Var bor hemligheterna, och hur får jag dem?                          | `docs/deploy.md`                             |
+| Hur kommer en ändring till produktion – och hur rullar man tillbaka? | `docs/deploy.md`                             |
+| Varför ser arkitekturen ut så här – var finns besluten?              | `docs/architecture.md` och `docs/decisions/` |
+| Vad är känt trasigt eller medvetet ogjort?                           | `docs/known-issues.md`                       |
 
 ## Working Agreement
 

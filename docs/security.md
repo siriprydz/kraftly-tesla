@@ -39,6 +39,8 @@ Verifierat på staging. Se resultat längre ner.
 
 ## Kända brister (medvetet kvar)
 
+Samlad lista med påverkan och skäl: [known-issues.md](known-issues.md).
+
 - **Mock-API autentiserar inte lösenord** - accepterar valfria uppgifter i demo. Dock används det inte i staging eller prod, och lokalt endast om den riktiga API-nyckeln saknas.
 - **Refresh-cookie rensas inte vid logout** – `setAccessToken(null)` raderar bara access token i minnet. Refresh-cookien (`kraftly_refresh`) ligger kvar i browsern eftersom den är httpOnly och vår logout-knapp inte anropar något API. Vid sidladdning försöker `main.js` refresha automatiskt, så användaren kan bli inloggad igen utan lösenord. Mock-API har ingen logout-endpoint, oklart om riktiga API:t har det. Mest kritiskt på delad dator.
 - **Mock-API har öppen CORS** - browsern når det inte direkt i Docker/staging (nginx proxar), men koden bör städas i en senare PR.
