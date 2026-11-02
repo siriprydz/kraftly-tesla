@@ -139,3 +139,10 @@ Tiden för Storybook-jobbet: 37s
 ### Fastnat på:
 
 Fick läsa lite om vad storybook-static är för mapp innan jag förstod att jag behövde radera det som redan fanns där och fylla på den med det jag fått från artefakten.
+
+## 2026-11-02 – generalrepetition slutdemon
+
+- Vilka var med: Siri och Elin
+- Hur lång den blev: 7 min och 51s (mål 10)
+- Vad som ändrades i körschemat: Alla ska fila lite mer på exakt vad de ska säga, så att det flyter på ännu bättre.
+- Reserven provad: nej, den behövdes inte under genrepet men vi har koll på var allt ligger.
