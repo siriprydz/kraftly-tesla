@@ -21,13 +21,9 @@ Tryck inte Enter på inloggningen – klicka **Logga in**. Klicka inte **Ladda n
 - [ ] Tagga `v1.0` om det inte redan är gjort
 - [ ] Prod verifierad samma morgon – https://kraftly-tesla.onrender.com/version.txt visar sha:n för `v1.0`
 - [ ] Prod väckt tio minuter före (Render sover efter 15 minuter utan trafik)
-- [ ] Flikarna öppna, i ordning:
-  1. Prod inloggning (inkognito, utloggad) med DevTools → Network redo
-  2. Prod inloggad som Anna (vanlig flik) med DevTools → Application och Performance redo
-  3. Flyttanmälan på den inloggade fliken
-  4. Bildspelet, från slide 1
+- [ ] Flikarna öppna, i ordning ...
 - [ ] Inloggad med testkontot i en flik, utloggad i en annan
-- [ ] Reserven: gömda slides med skärmdumpar (Network utan `X-Api-Key`, LCP, flyttformulär)
+- [ ] Reserven: gömda slides med skärmdumpar
 - [ ] Det som ska skrivas live finns att kopiera:
 
 ```
